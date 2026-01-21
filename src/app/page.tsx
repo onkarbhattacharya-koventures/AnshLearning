@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import type { Category, Word, Language, AgeGroup } from '@/lib/data';
-import { ageGroups, categories as allCategories, words as allWords } from '@/lib/data';
+import type { Category, Word, Language, AgeGroup, Sentence, Paragraph, Story } from '@/lib/data';
+import { ageGroups, categories as allCategories, words as allWords, sentences as allSentences, paragraphs as allParagraphs, stories as allStories } from '@/lib/data';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { AgeSelector } from '@/components/age-selector';
 import { CategoryGrid } from '@/components/category-grid';
@@ -42,6 +42,18 @@ export default function Home() {
     ? allWords.filter(w => w.categoryId === selectedCategory.id && w.ageGroups.includes(selectedAgeGroup))
     : [];
 
+  const filteredSentences = selectedCategory && selectedAgeGroup
+    ? allSentences.filter(s => s.categoryId === selectedCategory.id && s.ageGroups.includes(selectedAgeGroup))
+    : [];
+
+  const filteredParagraphs = selectedCategory && selectedAgeGroup
+    ? allParagraphs.filter(p => p.categoryId === selectedCategory.id && p.ageGroups.includes(selectedAgeGroup))
+    : [];
+
+  const filteredStories = selectedCategory && selectedAgeGroup
+    ? allStories.filter(s => s.categoryId === selectedCategory.id && s.ageGroups.includes(selectedAgeGroup))
+    : [];
+
   const renderContent = () => {
     if (!selectedAgeGroup) {
       return (
@@ -64,6 +76,9 @@ export default function Home() {
     return (
       <LearningView
         words={filteredWords}
+        sentences={filteredSentences}
+        paragraphs={filteredParagraphs}
+        stories={filteredStories}
         category={selectedCategory}
         language={language}
       />

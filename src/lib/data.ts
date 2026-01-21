@@ -1,5 +1,6 @@
+
 import type { LucideIcon } from 'lucide-react';
-import { Cat, Dog, House, Car, Apple, Sprout, Building, Users, Rocket, Globe } from 'lucide-react';
+import { Cat, Dog, House, Car, Apple, Sprout, Building, Users, Rocket, Globe, MessageSquareText, AlignLeft, BookOpen } from 'lucide-react';
 import placeholderData from './placeholder-images.json';
 
 export type Language = 'en' | 'de';
@@ -19,6 +20,29 @@ export interface Word {
   imageId: string;
   ageGroups: AgeGroup[];
 }
+
+export interface Sentence {
+  id: string;
+  categoryId: string;
+  text: Record<Language, string>;
+  ageGroups: AgeGroup[];
+}
+
+export interface Paragraph {
+  id: string;
+  categoryId: string;
+  text: Record<Language, string>;
+  ageGroups: AgeGroup[];
+}
+
+export interface Story {
+  id: string;
+  categoryId: string;
+  title: Record<Language, string>;
+  content: Record<Language, string>;
+  ageGroups: AgeGroup[];
+}
+
 
 export const ageGroups: AgeGroup[] = ['1-3', '3-5', '5-8', '8-12', '13-15', '15-18'];
 
@@ -65,6 +89,24 @@ export const categories: Category[] = [
     Icon: Globe,
     ageGroups: ['13-15', '15-18'],
   },
+  {
+    id: 'sentences',
+    name: { en: 'Sentences', de: 'Sätze' },
+    Icon: MessageSquareText,
+    ageGroups: ['5-8', '8-12', '13-15', '15-18'],
+  },
+  {
+    id: 'paragraphs',
+    name: { en: 'Paragraphs', de: 'Absätze' },
+    Icon: AlignLeft,
+    ageGroups: ['8-12', '13-15', '15-18'],
+  },
+  {
+    id: 'stories',
+    name: { en: 'Stories', de: 'Geschichten' },
+    Icon: BookOpen,
+    ageGroups: ['8-12', '13-15', '15-18'],
+  },
 ];
 
 export const words: Word[] = [
@@ -93,5 +135,39 @@ export const words: Word[] = [
   { id: 'phone', categoryId: 'technology', text: { en: 'Phone', de: 'Handy' }, imageId: 'phone-1', ageGroups: ['8-12', '13-15', '15-18'] },
   { id: 'bicycle', categoryId: 'technology', text: { en: 'Bicycle', de: 'Fahrrad' }, imageId: 'bicycle-1', ageGroups: ['8-12', '13-15'] },
 ];
+
+export const sentences: Sentence[] = [
+  { id: 's1', categoryId: 'sentences', text: { en: 'The cat is sleeping on the mat.', de: 'Die Katze schläft auf der Matte.' }, ageGroups: ['5-8'] },
+  { id: 's2', categoryId: 'sentences', text: { en: 'The dog is playing in the garden.', de: 'Der Hund spielt im Garten.' }, ageGroups: ['5-8'] },
+  { id: 's3', categoryId: 'sentences', text: { en: 'I like to read books.', de: 'Ich lese gerne Bücher.' }, ageGroups: ['5-8', '8-12'] },
+  { id: 's4', categoryId: 'sentences', text: { en: 'The sun is shining brightly.', de: 'Die Sonne scheint hell.' }, ageGroups: ['5-8', '8-12'] },
+  { id: 's5', categoryId: 'sentences', text: { en: 'My favorite color is blue.', de: 'Meine Lieblingsfarbe ist blau.' }, ageGroups: ['5-8', '8-12'] },
+];
+
+export const paragraphs: Paragraph[] = [
+  {
+    id: 'p1',
+    categoryId: 'paragraphs',
+    text: {
+      en: 'Once upon a time, in a small village nestled in a valley, lived a young girl named Lily. She was known for her kindness and her love for animals. Every day, she would wander into the forest to spend time with her furry and feathered friends.',
+      de: 'Es war einmal in einem kleinen Dorf in einem Tal ein junges Mädchen namens Lily. Sie war bekannt für ihre Freundlichkeit und ihre Liebe zu Tieren. Jeden Tag wanderte sie in den Wald, um Zeit mit ihren pelzigen und gefiederten Freunden zu verbringen.',
+    },
+    ageGroups: ['8-12', '13-15'],
+  },
+];
+
+export const stories: Story[] = [
+  {
+    id: 'story-1',
+    categoryId: 'stories',
+    title: { en: 'The Magical Tree', de: 'Der magische Baum' },
+    content: {
+      en: `In the heart of an ancient forest stood a tree unlike any other. Its leaves shimmered with all the colors of the rainbow, and it was said to possess magical powers. One day, a curious boy named Tom discovered the tree and his life was changed forever.`,
+      de: `Im Herzen eines alten Waldes stand ein Baum, der anders war als alle anderen. Seine Blätter schimmerten in allen Farben des Regenbogens, und es wurde gesagt, dass er magische Kräfte besitze. Eines Tages entdeckte ein neugieriger Junge namens Tom den Baum und sein Leben veränderte sich für immer.`,
+    },
+    ageGroups: ['8-12', '13-15', '15-18'],
+  },
+];
+
 
 export const placeholderImages = placeholderData.placeholderImages;

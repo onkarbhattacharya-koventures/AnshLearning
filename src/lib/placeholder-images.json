@@ -20,8 +20,8 @@
     },
     {
       "id": "car-1",
-      "description": "A shiny red sports car.",
-      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYXJ8ZW58MHx8fHwxNzY4OTk3NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "A sleek McLaren sports car.",
+      "imageUrl": "https://issimi-vehicles-cdn.b-cdn.net/publicamlvehiclemanagement/VehicleDetails/628/timestamped-1722570747278-2018%20McLaren%20720S_001.jpg?width=3840&quality=75",
       "imageHint": "car"
     },
     {
@@ -87,7 +87,7 @@
     {
       "id": "phone-1",
       "description": "A smartphone showing a colorful screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwaG9uZXxlbnwwfHx8fDE3Njg5OTc1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1605234685329-3d1a33a3d1b3?q=80&w=1080&auto=format&fit=crop",
       "imageHint": "phone"
     },
     {

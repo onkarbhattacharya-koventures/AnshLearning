@@ -18,6 +18,8 @@ interface PronunciationToolProps {
 
 type RecordingStatus = 'idle' | 'permission' | 'recording' | 'processing' | 'success' | 'error';
 
+const mimeType = 'audio/webm';
+
 export function PronunciationTool({ word, language }: PronunciationToolProps) {
   const [status, setStatus] = useState<RecordingStatus>('idle');
   const [feedback, setFeedback] = useState<PronunciationFeedbackOutput | null>(null);
@@ -28,10 +30,30 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
   const startRecording = async () => {
     setStatus('permission');
     setFeedback(null);
+    if (!window.MediaRecorder) {
+      console.error("MediaRecorder API not available in this browser.");
+      toast({
+        variant: "destructive",
+        title: "Browser Not Supported",
+        description: "Recording audio is not supported in this browser. Please try a different browser.",
+      });
+      setStatus('error');
+      return;
+    }
+    if (!MediaRecorder.isTypeSupported(mimeType)) {
+      console.error(`MediaRecorder API does not support ${mimeType}.`);
+      toast({
+        variant: "destructive",
+        title: "Browser Not Supported",
+        description: "Recording audio in the required format is not supported in this browser. Please try a different browser.",
+      });
+      setStatus('error');
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setStatus('recording');
-      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType });
       mediaRecorderRef.current.ondataavailable = (event) => {
         audioChunksRef.current.push(event.data);
       };
@@ -58,28 +80,38 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
 
   const handleStop = async () => {
     setStatus('processing');
-    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
     audioChunksRef.current = [];
 
     const reader = new FileReader();
     reader.readAsDataURL(audioBlob);
     reader.onloadend = async () => {
-      const base64Audio = reader.result as string;
-      const response = await getPronunciationFeedbackAction({
-        word: word.text[language],
-        spokenWord: base64Audio,
-        language,
-      });
+      try {
+        const base64Audio = reader.result as string;
+        const response = await getPronunciationFeedbackAction({
+          word: word.text[language],
+          spokenWord: base64Audio,
+          language,
+        });
 
-      if (response.success && response.data) {
-        setFeedback(response.data);
-        setStatus('success');
-      } else {
-        console.error('Error getting feedback:', response.error);
+        if (response.success && response.data) {
+          setFeedback(response.data);
+          setStatus('success');
+        } else {
+          console.error('Error getting feedback:', response.error);
+          toast({
+            variant: "destructive",
+            title: "AI Error",
+            description: "Could not get feedback from the AI. Please try again.",
+          });
+          setStatus('error');
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
         toast({
           variant: "destructive",
-          title: "AI Error",
-          description: "Could not get feedback from the AI. Please try again.",
+          title: "Error",
+          description: "An unexpected error occurred. Please try again later.",
         });
         setStatus('error');
       }
