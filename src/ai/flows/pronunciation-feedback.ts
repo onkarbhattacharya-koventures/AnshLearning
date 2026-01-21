@@ -37,21 +37,6 @@ export async function getPronunciationFeedback(
   return pronunciationFeedbackFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'pronunciationFeedbackPrompt',
-  input: {schema: PronunciationFeedbackInputSchema},
-  output: {schema: PronunciationFeedbackOutputSchema},
-  prompt: `You are a language learning assistant that helps children improve their pronunciation.
-
-You will be provided with a word, the user's spoken attempt, and the language.
-
-Provide feedback on the user's pronunciation of the word. Include a score between 0 and 1 of how accurate the pronunciation was.
-
-Word: {{{word}}}
-Spoken Word: {{media url=spokenWord}}
-Language: {{{language}}}`,
-});
-
 const pronunciationFeedbackFlow = ai.defineFlow(
   {
     name: 'pronunciationFeedbackFlow',
@@ -59,7 +44,10 @@ const pronunciationFeedbackFlow = ai.defineFlow(
     outputSchema: PronunciationFeedbackOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    // Return a mock response instead of calling the Gemini API.
+    return {
+      feedback: `This is a mocked feedback for the word "${input.word}". Your pronunciation was great!`,
+      score: 0.95,
+    };
   }
 );
