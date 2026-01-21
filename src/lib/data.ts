@@ -1,6 +1,6 @@
 
 import type { LucideIcon } from 'lucide-react';
-import { Cat, Dog, House, Car, Apple, Sprout, Building, Users, Rocket, Globe, MessageSquareText, AlignLeft, BookOpen } from 'lucide-react';
+import { Cat, Dog, House, Car, Apple, Sprout, Building, Users, Rocket, Globe, MessageSquareText, AlignLeft, BookOpen, Utensils } from 'lucide-react';
 import placeholderData from './placeholder-images.json';
 
 export type Language = 'en' | 'de';
@@ -59,11 +59,17 @@ export const categories: Category[] = [
     Icon: House,
     ageGroups: ['1-3', '3-5', '5-8', '8-12'],
   },
-    {
+  {
     id: 'nature',
     name: { en: 'Nature', de: 'Natur' },
     Icon: Sprout,
     ageGroups: ['3-5', '5-8', '8-12'],
+  },
+  {
+    id: 'food',
+    name: { en: 'Food', de: 'Essen' },
+    Icon: Utensils,
+    ageGroups: ['1-3', '3-5', '5-8'],
   },
   {
     id: 'people',
@@ -113,10 +119,13 @@ export const words: Word[] = [
   // Animals
   { id: 'cat', categoryId: 'animals', text: { en: 'Cat', de: 'Katze' }, imageId: 'cat-1', ageGroups: ['1-3', '3-5'] },
   { id: 'dog', categoryId: 'animals', text: { en: 'Dog', de: 'Hund' }, imageId: 'dog-1', ageGroups: ['1-3', '3-5'] },
+  { id: 'bird', categoryId: 'animals', text: { en: 'Bird', de: 'Vogel' }, imageId: 'bird-1', ageGroups: ['1-3', '3-5', '5-8'] },
+  { id: 'fish', categoryId: 'animals', text: { en: 'Fish', de: 'Fisch' }, imageId: 'fish-1', ageGroups: ['1-3', '3-5'] },
   // Home
   { id: 'house', categoryId: 'home', text: { en: 'House', de: 'Haus' }, imageId: 'house-1', ageGroups: ['1-3', '3-5'] },
   { id: 'car', categoryId: 'home', text: { en: 'Car', de: 'Auto' }, imageId: 'car-1', ageGroups: ['1-3', '3-5', '5-8'] },
   { id: 'ball', categoryId: 'home', text: { en: 'Ball', de: 'Ball' }, imageId: 'ball-1', ageGroups: ['1-3'] },
+  { id: 'bed', categoryId: 'home', text: { en: 'Bed', de: 'Bett' }, imageId: 'bed-1', ageGroups: ['1-3', '3-5'] },
   // Nature
   { id: 'apple', categoryId: 'nature', text: { en: 'Apple', de: 'Apfel' }, imageId: 'apple-1', ageGroups: ['3-5', '5-8'] },
   { id: 'tree', categoryId: 'nature', text: { en: 'Tree', de: 'Baum' }, imageId: 'tree-1', ageGroups: ['3-5', '5-8'] },
@@ -124,6 +133,10 @@ export const words: Word[] = [
   { id: 'sun', categoryId: 'nature', text: { en: 'Sun', de: 'Sonne' }, imageId: 'sun-1', ageGroups: ['3-5', '5-8'] },
   { id: 'moon', categoryId: 'nature', text: { en: 'Moon', de: 'Mond' }, imageId: 'moon-1', ageGroups: ['3-5', '5-8'] },
   { id: 'star', categoryId: 'nature', text: { en: 'Star', de: 'Stern' }, imageId: 'star-1', ageGroups: ['3-5', '5-8'] },
+  // Food
+  { id: 'bread', categoryId: 'food', text: { en: 'Bread', de: 'Brot' }, imageId: 'bread-1', ageGroups: ['1-3', '3-5'] },
+  { id: 'milk', categoryId: 'food', text: { en: 'Milk', de: 'Milch' }, imageId: 'milk-1', ageGroups: ['1-3', '3-5'] },
+  { id: 'cheese', categoryId: 'food', text: { en: 'Cheese', de: 'Käse' }, imageId: 'cheese-1', ageGroups: ['3-5', '5-8'] },
   // People
   { id: 'family', categoryId: 'people', text: { en: 'Family', de: 'Familie' }, imageId: 'family-1', ageGroups: ['5-8', '8-12'] },
   { id: 'friend', categoryId: 'people', text: { en: 'Friend', de: 'Freund' }, imageId: 'friend-1', ageGroups: ['5-8', '8-12', '13-15'] },
@@ -142,6 +155,9 @@ export const sentences: Sentence[] = [
   { id: 's3', categoryId: 'sentences', text: { en: 'I like to read books.', de: 'Ich lese gerne Bücher.' }, ageGroups: ['5-8', '8-12'] },
   { id: 's4', categoryId: 'sentences', text: { en: 'The sun is shining brightly.', de: 'Die Sonne scheint hell.' }, ageGroups: ['5-8', '8-12'] },
   { id: 's5', categoryId: 'sentences', text: { en: 'My favorite color is blue.', de: 'Meine Lieblingsfarbe ist blau.' }, ageGroups: ['5-8', '8-12'] },
+  { id: 's6', categoryId: 'sentences', text: { en: 'The bird is singing a song.', de: 'Der Vogel singt ein Lied.' }, ageGroups: ['5-8'] },
+  { id: 's7', categoryId: 'sentences', text: { en: 'The fish is swimming in the water.', de: 'Der Fisch schwimmt im Wasser.' }, ageGroups: ['5-8'] },
+  { id: 's8', categoryId: 'sentences', text: { en: 'I drink milk every morning.', de: 'Ich trinke jeden Morgen Milch.' }, ageGroups: ['5-8', '8-12'] },
 ];
 
 export const paragraphs: Paragraph[] = [
@@ -151,6 +167,15 @@ export const paragraphs: Paragraph[] = [
     text: {
       en: 'Once upon a time, in a small village nestled in a valley, lived a young girl named Lily. She was known for her kindness and her love for animals. Every day, she would wander into the forest to spend time with her furry and feathered friends.',
       de: 'Es war einmal in einem kleinen Dorf in einem Tal ein junges Mädchen namens Lily. Sie war bekannt für ihre Freundlichkeit und ihre Liebe zu Tieren. Jeden Tag wanderte sie in den Wald, um Zeit mit ihren pelzigen und gefiederten Freunden zu verbringen.',
+    },
+    ageGroups: ['8-12', '13-15'],
+  },
+  {
+    id: 'p2',
+    categoryId: 'paragraphs',
+    text: {
+      en: 'The school was a large, old building with ivy-covered walls. Inside, there were many classrooms, a library filled with books, and a playground where children could run and play. The teachers were kind and patient, and they made learning fun.',
+      de: 'Die Schule war ein großes, altes Gebäude mit efeubewachsenen Mauern. Im Inneren gab es viele Klassenzimmer, eine Bibliothek voller Bücher und einen Spielplatz, auf dem die Kinder rennen und spielen konnten. Die Lehrer waren freundlich und geduldig, und sie machten das Lernen zum Vergnügen.',
     },
     ageGroups: ['8-12', '13-15'],
   },
@@ -166,6 +191,16 @@ export const stories: Story[] = [
       de: `Im Herzen eines alten Waldes stand ein Baum, der anders war als alle anderen. Seine Blätter schimmerten in allen Farben des Regenbogens, und es wurde gesagt, dass er magische Kräfte besitze. Eines Tages entdeckte ein neugieriger Junge namens Tom den Baum und sein Leben veränderte sich für immer.`,
     },
     ageGroups: ['8-12', '13-15', '15-18'],
+  },
+  {
+    id: 'story-2',
+    categoryId: 'stories',
+    title: { en: 'The Lost Astronaut', de: 'Der verlorene Astronaut' },
+    content: {
+      en: `Captain Eva was on a mission to explore a distant galaxy when her spaceship was hit by a meteor shower. She crash-landed on a strange planet with purple skies and glowing flora. Now, Eva must find a way to repair her ship and return to Earth.`,
+      de: `Kapitänin Eva war auf einer Mission, um eine ferne Galaxie zu erforschen, als ihr Raumschiff von einem Meteoritenschauer getroffen wurde. Sie machte eine Bruchlandung auf einem seltsamen Planeten mit lila Himmel und leuchtender Flora. Jetzt muss Eva einen Weg finden, um ihr Schiff zu reparieren und zur Erde zurückzukehren.`,
+    },
+    ageGroups: ['13-15', '15-18'],
   },
 ];
 

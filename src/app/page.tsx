@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import type { Category, Word, Language, AgeGroup, Sentence, Paragraph, Story } from '@/lib/data';
-import { ageGroups, categories as allCategories, words as allWords, sentences as allSentences, paragraphs as allParagraphs, stories as allStories } from '@/lib/data';
+import type { Language, AgeGroup } from '@/lib/data';
+import { ageGroups } from '@/lib/data';
+import { modules } from '@/lib/modules';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { AgeSelector } from '@/components/age-selector';
-import { CategoryGrid } from '@/components/category-grid';
+import { ModuleGrid } from '@/components/module-grid';
 import { LearningView } from '@/components/learning-view';
 import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -14,44 +15,28 @@ import { ArrowLeft } from 'lucide-react';
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroup | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedModule, setSelectedModule] = useState<any | null>(null);
 
   const handleAgeSelect = (ageGroup: AgeGroup) => {
     setSelectedAgeGroup(ageGroup);
-    setSelectedCategory(null);
+    setSelectedModule(null);
   };
 
-  const handleCategorySelect = (category: Category) => {
-    setSelectedCategory(category);
+  const handleModuleSelect = (module: any) => {
+    setSelectedModule(module);
   };
 
-  const resetCategory = () => {
-    setSelectedCategory(null);
+  const resetModule = () => {
+    setSelectedModule(null);
   };
 
   const resetAgeGroup = () => {
     setSelectedAgeGroup(null);
-    setSelectedCategory(null);
+    setSelectedModule(null);
   };
 
-  const filteredCategories = selectedAgeGroup
-    ? allCategories.filter(c => c.ageGroups.includes(selectedAgeGroup))
-    : [];
-
-  const filteredWords = selectedCategory && selectedAgeGroup
-    ? allWords.filter(w => w.categoryId === selectedCategory.id && w.ageGroups.includes(selectedAgeGroup))
-    : [];
-
-  const filteredSentences = selectedCategory && selectedAgeGroup
-    ? allSentences.filter(s => s.categoryId === selectedCategory.id && s.ageGroups.includes(selectedAgeGroup))
-    : [];
-
-  const filteredParagraphs = selectedCategory && selectedAgeGroup
-    ? allParagraphs.filter(p => p.categoryId === selectedCategory.id && p.ageGroups.includes(selectedAgeGroup))
-    : [];
-
-  const filteredStories = selectedCategory && selectedAgeGroup
-    ? allStories.filter(s => s.categoryId === selectedCategory.id && s.ageGroups.includes(selectedAgeGroup))
+  const filteredModules = selectedAgeGroup
+    ? modules.filter(m => m.ageGroups.includes(selectedAgeGroup))
     : [];
 
   const renderContent = () => {
@@ -64,22 +49,18 @@ export default function Home() {
         />
       );
     }
-    if (!selectedCategory) {
+    if (!selectedModule) {
       return (
-        <CategoryGrid
-          categories={filteredCategories}
-          onSelect={handleCategorySelect}
+        <ModuleGrid
+          modules={filteredModules}
+          onSelect={handleModuleSelect}
           language={language}
         />
       );
     }
     return (
       <LearningView
-        words={filteredWords}
-        sentences={filteredSentences}
-        paragraphs={filteredParagraphs}
-        stories={filteredStories}
-        category={selectedCategory}
+        module={selectedModule}
         language={language}
       />
     );
@@ -101,10 +82,10 @@ export default function Home() {
         <div className="w-full">
           {selectedAgeGroup && (
             <div className="mb-6 flex justify-start">
-              <Button variant="ghost" onClick={selectedCategory ? resetCategory : resetAgeGroup}>
+              <Button variant="ghost" onClick={selectedModule ? resetModule : resetAgeGroup}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                {selectedCategory
-                  ? `Back to Categories`
+                {selectedModule
+                  ? `Back to Modules`
                   : `Back to Age Groups`}
               </Button>
             </div>

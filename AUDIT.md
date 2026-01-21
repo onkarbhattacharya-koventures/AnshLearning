@@ -38,3 +38,5 @@ Here is a list of required features and improvements:
 - **[ ] Accessibility (a11y):** Ensure that the application is accessible to users with disabilities by following the WCAG guidelines.
 - **[ ] Performance Optimization:** Optimize the application for performance by lazy loading components, optimizing images, and reducing the bundle size.
 - **[ ] CI/CD Pipeline:** Set up a CI/CD pipeline to automate the build, test, and deployment process.
+- **[x] Detailed Learning Modules:** Incorporate more detailed learning modules for every age group.
+- **[ ] Diversify Learning Categories:** Add new categories to the learning modules to provide a wider range of topics for users to explore.
