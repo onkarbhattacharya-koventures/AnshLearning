@@ -1,3 +1,112 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "cat-1",
+      "description": "A fluffy white cat with blue eyes.",
+      "imageUrl": "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYXR8ZW58MHx8fHwxNzY4OTY4NjA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cat"
+    },
+    {
+      "id": "dog-1",
+      "description": "A golden retriever puppy playing in a field.",
+      "imageUrl": "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkb2d8ZW58MHx8fHwxNzY4OTY4NjA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dog"
+    },
+    {
+      "id": "house-1",
+      "description": "A cozy house with a red door.",
+      "imageUrl": "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxob3VzZXxlbnwwfHx8fDE3Njg5OTc1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "house"
+    },
+    {
+      "id": "car-1",
+      "description": "A shiny red sports car.",
+      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYXJ8ZW58MHx8fHwxNzY4OTk3NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car"
+    },
+    {
+      "id": "apple-1",
+      "description": "A crisp red apple with a green leaf.",
+      "imageUrl": "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhcHBsZXxlbnwwfHx8fDE3Njg5OTc1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "apple"
+    },
+    {
+      "id": "ball-1",
+      "description": "A colorful beach ball.",
+      "imageUrl": "https://images.unsplash.com/photo-1516567727245-ad8c68f3ec93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiYWxsfGVufDB8fHx8MTc2ODk5NzUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ball"
+    },
+    {
+      "id": "book-1",
+      "description": "An open book with illustrations.",
+      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxib29rfGVufDB8fHx8MTc2ODk5NzUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book"
+    },
+    {
+      "id": "tree-1",
+      "description": "A large green tree in a park.",
+      "imageUrl": "https://images.unsplash.com/photo-1437964706703-40b90bdf563b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmVlfGVufDB8fHx8MTc2ODk5NzUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tree"
+    },
+    {
+      "id": "sun-1",
+      "description": "A bright shining sun in the sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1525490829609-d166ddb58678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdW58ZW58MHx8fHwxNzY4OTk3NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sun"
+    },
+    {
+      "id": "moon-1",
+      "description": "A crescent moon in the night sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1527842891421-42eec6e703ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb29ufGVufDB8fHx8MTc2ODk5NzUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "moon"
+    },
+    {
+      "id": "star-1",
+      "description": "A single bright star twinkling.",
+      "imageUrl": "https://images.unsplash.com/photo-1472552944129-b035e9ea3744?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdGFyfGVufDB8fHx8MTc2ODk5NzUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "star"
+    },
+    {
+      "id": "flower-1",
+      "description": "A beautiful red rose.",
+      "imageUrl": "https://images.unsplash.com/photo-1471899236350-e3016bf1e69e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmbG93ZXJ8ZW58MHx8fHwxNzY4OTIyMTY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "flower"
+    },
+    {
+      "id": "bicycle-1",
+      "description": "A blue bicycle leaning against a wall.",
+      "imageUrl": "https://images.unsplash.com/photo-1505705694340-019e1e335916?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiaWN5Y2xlfGVufDB8fHx8MTc2ODk5NzUzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bicycle"
+    },
+    {
+      "id": "computer-1",
+      "description": "A modern laptop computer on a desk.",
+      "imageUrl": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb21wdXRlcnxlbnwwfHx8fDE3Njg5OTc1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "computer"
+    },
+    {
+      "id": "phone-1",
+      "description": "A smartphone showing a colorful screen.",
+      "imageUrl": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwaG9uZXxlbnwwfHx8fDE3Njg5OTc1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "phone"
+    },
+    {
+      "id": "friend-1",
+      "description": "Two friends laughing together.",
+      "imageUrl": "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmcmllbmRzfGVufDB8fHx8MTc2ODkyMjg2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "friends"
+    },
+    {
+      "id": "family-1",
+      "description": "A happy family posing for a picture.",
+      "imageUrl": "https://images.unsplash.com/photo-1609220136736-443140cffec6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYW1pbHl8ZW58MHx8fHwxNzY4OTk3NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "family"
+    },
+    {
+      "id": "school-1",
+      "description": "A large brick school building.",
+      "imageUrl": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzY2hvb2x8ZW58MHx8fHwxNzY4OTk3NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "school"
+    }
+  ]
 }
