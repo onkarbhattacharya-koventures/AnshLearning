@@ -13,6 +13,7 @@ import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft, BookOpen, Search } from 'lucide-react';
+import { TranslationFooter } from '@/components/translation-footer';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
@@ -88,7 +89,7 @@ export default function Home() {
         </div>
         <LanguageSwitcher language={language} setLanguage={setLanguage} />
       </header>
-      
+
       <main className="flex flex-1 flex-col w-full max-w-5xl items-center justify-center mt-8">
         <div className="w-full">
           {activeTab === 'learn' && currentAgeGroup && (
@@ -101,7 +102,7 @@ export default function Home() {
               </Button>
             </div>
           )}
-          
+
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="learn" className="flex items-center gap-2">
@@ -113,11 +114,11 @@ export default function Home() {
                 Vocabulary
               </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="learn" className="mt-0">
               {renderLearningContent()}
             </TabsContent>
-            
+
             <TabsContent value="vocabulary" className="mt-0">
               <VocabularyBrowser language={language} />
             </TabsContent>
@@ -125,11 +126,14 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="w-full max-w-5xl text-center mt-8 py-4">
-          <p className="text-muted-foreground text-sm">
-              &copy; {new Date().getFullYear()} LanguageKids. A fun way to learn languages.
-          </p>
+      <footer className="w-full max-w-5xl text-center mt-8 py-4 mb-20">
+        <p className="text-muted-foreground text-sm">
+          &copy; {new Date().getFullYear()} LanguageKids. A fun way to learn languages.
+        </p>
       </footer>
+
+      {/* Translation Footer */}
+      <TranslationFooter defaultLanguage={language} />
     </div>
   );
 }

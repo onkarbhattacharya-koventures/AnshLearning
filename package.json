@@ -1,6 +1,7 @@
 {
-  "name": "nextn",
-  "version": "0.1.0",
+  "name": "languagekids",
+  "version": "1.0.0",
+  "description": "Interactive language learning platform for students aged 1-18",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 9003",

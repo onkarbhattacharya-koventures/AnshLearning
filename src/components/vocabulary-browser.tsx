@@ -17,12 +17,12 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredEntries = vocabularyEntries.filter(entry => {
-    const matchesSearch = searchTerm === '' || 
+    const matchesSearch = searchTerm === '' ||
       entry.english.toLowerCase().includes(searchTerm.toLowerCase()) ||
       entry.german.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesCategory = !selectedCategory || entry.category === selectedCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 
@@ -58,12 +58,12 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
           >
             All
           </Button>
-          {categories.map(category => (
+          {categories.map((category) => (
             <Button
               key={category}
               variant={selectedCategory === category ? "default" : "outline"}
               size="sm"
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => setSelectedCategory(category as string)}
             >
               {category}
             </Button>
