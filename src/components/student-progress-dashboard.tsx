@@ -40,17 +40,130 @@ export function StudentProgressDashboard({
         (new Date().getTime() - new Date(progress.startDate).getTime()) / (1000 * 60 * 60 * 24)
     );
 
+    const t = {
+        en: {
+            title: 'My Progress',
+            subtitle: 'Track your learning journey',
+            totalPoints: 'Total Points',
+            pointsHint: 'Keep learning to earn more!',
+            currentStreak: 'Current Streak',
+            longestStreak: (days: number) => `Longest: ${days} days`,
+            modulesCompleted: 'Modules Completed',
+            complete: 'complete',
+            badgesEarned: 'Badges Earned',
+            overview: 'Overview',
+            badges: 'Badges',
+            quizzes: 'Quizzes',
+            learningStats: 'Learning Stats',
+            daysActive: 'Days Active',
+            avgScore: 'Average Quiz Score',
+            quizzesTaken: 'Quizzes Taken',
+            perfectScores: 'Perfect Scores',
+            recentAchievements: 'Recent Achievements',
+            badgesHint: 'Complete modules to earn badges!',
+            allBadges: 'All Badges',
+            earnedBadges: (count: number) => `You've earned ${count} badges`,
+            noBadges: 'No badges yet. Start learning to earn your first badge!',
+            quizHistory: 'Quiz History',
+            quizPerf: 'Review your quiz performance',
+            attempts: ' Attempts: ',
+            noQuizzes: 'No quizzes completed yet. Take your first quiz!',
+        },
+        de: {
+            title: 'Mein Fortschritt',
+            subtitle: 'Verfolge deine Lernreise',
+            totalPoints: 'Gesamtpunkte',
+            pointsHint: 'Lerne weiter, um mehr zu verdienen!',
+            currentStreak: 'Aktuelle Serie',
+            longestStreak: (days: number) => `Längste: ${days} Tage`,
+            modulesCompleted: 'Module abgeschlossen',
+            complete: 'abgeschlossen',
+            badgesEarned: 'Abzeichen verdient',
+            overview: 'Übersicht',
+            badges: 'Abzeichen',
+            quizzes: 'Quiz',
+            learningStats: 'Lernstatistiken',
+            daysActive: 'Aktive Tage',
+            avgScore: 'Durchschnittliche Quiz-Punktzahl',
+            quizzesTaken: 'Absolvierte Quiz',
+            perfectScores: 'Perfekte Punktzahlen',
+            recentAchievements: 'Neueste Erfolge',
+            badgesHint: 'Schließe Module ab, um Abzeichen zu verdienen!',
+            allBadges: 'Alle Abzeichen',
+            earnedBadges: (count: number) => `Du hast ${count} Abzeichen verdient`,
+            noBadges: 'Noch keine Abzeichen. Beginne zu lernen, um dein erstes Abzeichen zu verdienen!',
+            quizHistory: 'Quiz-Verlauf',
+            quizPerf: 'Überprüfe deine Quiz-Leistung',
+            attempts: ' Versuche: ',
+            noQuizzes: 'Noch keine Quiz abgeschlossen. Mache dein erstes Quiz!',
+        },
+        fr: {
+            title: 'Mes progrès',
+            subtitle: 'Suivez votre parcours d\'apprentissage',
+            totalPoints: 'Points totaux',
+            pointsHint: 'Continuez à apprendre pour en gagner plus !',
+            currentStreak: 'Série actuelle',
+            longestStreak: (days: number) => `Plus longue : ${days} jours`,
+            modulesCompleted: 'Modules terminés',
+            complete: 'terminé',
+            badgesEarned: 'Badges gagnés',
+            overview: 'Aperçu',
+            badges: 'Badges',
+            quizzes: 'Quiz',
+            learningStats: 'Stats d\'apprentissage',
+            daysActive: 'Jours actifs',
+            avgScore: 'Score moyen aux quiz',
+            quizzesTaken: 'Quiz effectués',
+            perfectScores: 'Scores parfaits',
+            recentAchievements: 'Réalisations récentes',
+            badgesHint: 'Terminez des modules pour gagner des badges !',
+            allBadges: 'Tous les badges',
+            earnedBadges: (count: number) => `Vous avez gagné ${count} badges`,
+            noBadges: 'Pas encore de badges. Commencez à apprendre pour gagner votre premier badge !',
+            quizHistory: 'Historique des quiz',
+            quizPerf: 'Consultez vos performances aux quiz',
+            attempts: ' Tentatives : ',
+            noQuizzes: 'Aucun quiz terminé pour le moment. Faites votre premier quiz !',
+        },
+        es: {
+            title: 'Mis progresos',
+            subtitle: 'Sigue tu viaje de aprendizaje',
+            totalPoints: 'Puntos totales',
+            pointsHint: '¡Sigue aprendiendo para ganar más!',
+            currentStreak: 'Racha actual',
+            longestStreak: (days: number) => `Más larga: ${days} días`,
+            modulesCompleted: 'Módulos completados',
+            complete: 'completado',
+            badgesEarned: 'Insignias obtenidas',
+            overview: 'Visión general',
+            badges: 'Insignias',
+            quizzes: 'Cuestionarios',
+            learningStats: 'Estadísticas de aprendizaje',
+            daysActive: 'Días activos',
+            avgScore: 'Puntuación media en cuestionarios',
+            quizzesTaken: 'Cuestionarios realizados',
+            perfectScores: 'Puntuaciones perfectas',
+            recentAchievements: 'Logros recientes',
+            badgesHint: '¡Completa módulos para ganar insignias!',
+            allBadges: 'Todas las insignias',
+            earnedBadges: (count: number) => `Has ganado ${count} insignias`,
+            noBadges: 'Aún no hay insignias. ¡Empieza a aprender para ganar tu primera insignia!',
+            quizHistory: 'Historial de cuestionarios',
+            quizPerf: 'Revisa tu rendimiento en los cuestionarios',
+            attempts: ' Intentos: ',
+            noQuizzes: 'Aún no has completado ningún cuestionario. ¡Haz tu primer cuestionario!',
+        }
+    }[language];
+
     return (
         <div className="container mx-auto p-6 space-y-6">
             {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold text-primary-foreground">
-                    {language === 'en' ? 'My Progress' : 'Mein Fortschritt'}
+                    {t.title}
                 </h1>
                 <p className="text-muted-foreground">
-                    {language === 'en'
-                        ? 'Track your learning journey'
-                        : 'Verfolge deine Lernreise'}
+                    {t.subtitle}
                 </p>
             </div>
 
@@ -59,14 +172,14 @@ export function StudentProgressDashboard({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {language === 'en' ? 'Total Points' : 'Gesamtpunkte'}
+                            {t.totalPoints}
                         </CardTitle>
                         <Star className="h-4 w-4 text-yellow-500" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{progress.totalPoints}</div>
                         <p className="text-xs text-muted-foreground">
-                            {language === 'en' ? 'Keep learning to earn more!' : 'Lerne weiter, um mehr zu verdienen!'}
+                            {t.pointsHint}
                         </p>
                     </CardContent>
                 </Card>
@@ -74,16 +187,14 @@ export function StudentProgressDashboard({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {language === 'en' ? 'Current Streak' : 'Aktuelle Serie'}
+                            {t.currentStreak}
                         </CardTitle>
                         <Flame className="h-4 w-4 text-orange-500" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{progress.currentStreak}</div>
                         <p className="text-xs text-muted-foreground">
-                            {language === 'en'
-                                ? `Longest: ${progress.longestStreak} days`
-                                : `Längste: ${progress.longestStreak} Tage`}
+                            {t.longestStreak(progress.longestStreak)}
                         </p>
                     </CardContent>
                 </Card>
@@ -91,7 +202,7 @@ export function StudentProgressDashboard({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {language === 'en' ? 'Modules Completed' : 'Module abgeschlossen'}
+                            {t.modulesCompleted}
                         </CardTitle>
                         <BookOpen className="h-4 w-4 text-blue-500" />
                     </CardHeader>
@@ -99,7 +210,7 @@ export function StudentProgressDashboard({
                         <div className="text-2xl font-bold">{progress.completedModules.length}</div>
                         <Progress value={completionPercentage} className="mt-2" />
                         <p className="text-xs text-muted-foreground mt-1">
-                            {completionPercentage}% {language === 'en' ? 'complete' : 'abgeschlossen'}
+                            {completionPercentage}% {t.complete}
                         </p>
                     </CardContent>
                 </Card>
@@ -107,7 +218,7 @@ export function StudentProgressDashboard({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {language === 'en' ? 'Badges Earned' : 'Abzeichen verdient'}
+                            {t.badgesEarned}
                         </CardTitle>
                         <Award className="h-4 w-4 text-purple-500" />
                     </CardHeader>
@@ -129,15 +240,15 @@ export function StudentProgressDashboard({
                 <TabsList>
                     <TabsTrigger value="overview" className="gap-2">
                         <TrendingUp className="h-4 w-4" />
-                        {language === 'en' ? 'Overview' : 'Übersicht'}
+                        {t.overview}
                     </TabsTrigger>
                     <TabsTrigger value="badges" className="gap-2">
                         <Trophy className="h-4 w-4" />
-                        {language === 'en' ? 'Badges' : 'Abzeichen'}
+                        {t.badges}
                     </TabsTrigger>
                     <TabsTrigger value="quizzes" className="gap-2">
                         <Target className="h-4 w-4" />
-                        {language === 'en' ? 'Quizzes' : 'Quiz'}
+                        {t.quizzes}
                     </TabsTrigger>
                 </TabsList>
 
@@ -147,31 +258,31 @@ export function StudentProgressDashboard({
                         <Card>
                             <CardHeader>
                                 <CardTitle>
-                                    {language === 'en' ? 'Learning Stats' : 'Lernstatistiken'}
+                                    {t.learningStats}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">
-                                        {language === 'en' ? 'Days Active' : 'Aktive Tage'}
+                                        {t.daysActive}
                                     </span>
                                     <span className="font-semibold">{daysActive}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">
-                                        {language === 'en' ? 'Average Quiz Score' : 'Durchschnittliche Quiz-Punktzahl'}
+                                        {t.avgScore}
                                     </span>
                                     <span className="font-semibold">{averageQuizScore}%</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">
-                                        {language === 'en' ? 'Quizzes Taken' : 'Absolvierte Quiz'}
+                                        {t.quizzesTaken}
                                     </span>
                                     <span className="font-semibold">{progress.quizScores.length}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">
-                                        {language === 'en' ? 'Perfect Scores' : 'Perfekte Punktzahlen'}
+                                        {t.perfectScores}
                                     </span>
                                     <span className="font-semibold">
                                         {progress.quizScores.filter(q => q.score === q.maxScore).length}
@@ -183,7 +294,7 @@ export function StudentProgressDashboard({
                         <Card>
                             <CardHeader>
                                 <CardTitle>
-                                    {language === 'en' ? 'Recent Achievements' : 'Neueste Erfolge'}
+                                    {t.recentAchievements}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
@@ -206,9 +317,7 @@ export function StudentProgressDashboard({
                                     </div>
                                 ) : (
                                     <p className="text-center text-muted-foreground py-8">
-                                        {language === 'en'
-                                            ? 'Complete modules to earn badges!'
-                                            : 'Schließe Module ab, um Abzeichen zu verdienen!'}
+                                        {t.badgesHint}
                                     </p>
                                 )}
                             </CardContent>
@@ -221,12 +330,10 @@ export function StudentProgressDashboard({
                     <Card>
                         <CardHeader>
                             <CardTitle>
-                                {language === 'en' ? 'All Badges' : 'Alle Abzeichen'}
+                                {t.allBadges}
                             </CardTitle>
                             <CardDescription>
-                                {language === 'en'
-                                    ? `You've earned ${progress.badges.length} badges`
-                                    : `Du hast ${progress.badges.length} Abzeichen verdient`}
+                                {t.earnedBadges(progress.badges.length)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -250,9 +357,7 @@ export function StudentProgressDashboard({
                                 </div>
                             ) : (
                                 <p className="text-center text-muted-foreground py-8">
-                                    {language === 'en'
-                                        ? 'No badges yet. Start learning to earn your first badge!'
-                                        : 'Noch keine Abzeichen. Beginne zu lernen, um dein erstes Abzeichen zu verdienen!'}
+                                    {t.noBadges}
                                 </p>
                             )}
                         </CardContent>
@@ -264,12 +369,10 @@ export function StudentProgressDashboard({
                     <Card>
                         <CardHeader>
                             <CardTitle>
-                                {language === 'en' ? 'Quiz History' : 'Quiz-Verlauf'}
+                                {t.quizHistory}
                             </CardTitle>
                             <CardDescription>
-                                {language === 'en'
-                                    ? 'Review your quiz performance'
-                                    : 'Überprüfe deine Quiz-Leistung'}
+                                {t.quizPerf}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -286,7 +389,7 @@ export function StudentProgressDashboard({
                                                     <p className="font-semibold text-sm">{quiz.moduleId}</p>
                                                     <p className="text-xs text-muted-foreground">
                                                         {new Date(quiz.completedAt).toLocaleDateString()} •
-                                                        {language === 'en' ? ' Attempts: ' : ' Versuche: '}{quiz.attempts}
+                                                        {t.attempts}{quiz.attempts}
                                                     </p>
                                                 </div>
                                                 <div className="text-right">
@@ -301,9 +404,7 @@ export function StudentProgressDashboard({
                                 </div>
                             ) : (
                                 <p className="text-center text-muted-foreground py-8">
-                                    {language === 'en'
-                                        ? 'No quizzes completed yet. Take your first quiz!'
-                                        : 'Noch keine Quiz abgeschlossen. Mache dein erstes Quiz!'}
+                                    {t.noQuizzes}
                                 </p>
                             )}
                         </CardContent>

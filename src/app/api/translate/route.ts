@@ -22,8 +22,15 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const sourceLang = sourceLanguage === 'en' ? 'English' : 'German';
-        const targetLang = targetLanguage === 'en' ? 'English' : 'German';
+        const langMap: Record<string, string> = {
+            'en': 'English',
+            'de': 'German',
+            'fr': 'French',
+            'es': 'Spanish'
+        };
+
+        const sourceLang = langMap[sourceLanguage] || 'English';
+        const targetLang = langMap[targetLanguage] || 'English';
 
         const prompt = `Translate the following ${sourceLang} text to ${targetLang}. Only provide the translation, nothing else:\n\n${text}`;
 

@@ -11,8 +11,17 @@ interface AgeSelectorProps {
 }
 
 const titles: Record<Language, string> = {
-    en: 'Who is learning today?',
-    de: 'Wer lernt heute?',
+  en: 'Who is learning today?',
+  de: 'Wer lernt heute?',
+  fr: 'Qui apprend aujourd\'hui ?',
+  es: '¿Quién está aprendiendo hoy?',
+};
+
+const yearsLabel: Record<Language, string> = {
+  en: 'Years',
+  de: 'Jahre',
+  fr: 'Ans',
+  es: 'Años',
 };
 
 export function AgeSelector({ ageGroups, onSelect, language }: AgeSelectorProps) {
@@ -28,7 +37,7 @@ export function AgeSelector({ ageGroups, onSelect, language }: AgeSelectorProps)
           >
             <CardHeader className="p-6">
               <CardTitle className="text-xl md:text-2xl font-bold text-center">
-                {ageGroup} Years
+                {ageGroup} {yearsLabel[language]}
               </CardTitle>
             </CardHeader>
           </Card>

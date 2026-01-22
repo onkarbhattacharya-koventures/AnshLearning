@@ -5,109 +5,47 @@ export interface VocabularyEntry {
   id: string;
   english: string;
   german: string;
+  french: string;
+  spanish: string;
   category?: string;
   ageGroups: string[];
 }
 
-// English to German vocabulary
-const englishToGermanDict: Record<string, string> = {
-  "turn": "Wendung",
-  "evening": "Abend",
-  "dinner": "Abendessen",
-  "evening dress": "Abendkleidung",
-  "adventure": "Abenteuer",
-  "but": "sondern",
-  "leave (irr.)": "zurücklassen",
-  "rubbish": "Abfall",
-  "waste": "verschwenden",
-  "start": "starten",
-  "tax": "Steuer",
-  "withdrawn": "abgehoben",
-  "worn-out": "abgenutzt",
-  "representative": "Vertreter",
-  "boundary": "Abgrenzung",
-  "hillside": "Hang",
-  "slope": "Abhang",
-  "depend": "abhängen",
-  "dependent": "abhängig",
-  "dependence": "Abhängigkeit",
-  "depend on": "Abhängig sein von",
-  "harden": "härten",
-  "withdraw (irr.)": "zurückziehen",
-  "clear": "klären",
-  "cool": "kühlen",
-  "refuse": "verweigern",
-  "refusal": "Ablehnung",
-  "arrangement": "Reservierung",
-  "decrease": "abnehmen",
-  "lessening": "Minderung",
-  "take off": "starten (abheben) (Flugzeug)",
-  "wear down": "abnutzen",
-  "wear": "Abnutzung",
-  "account": "Konto",
-  "departure": "Abreise",
-  "depart": "abreisen",
-  "leave for": "abreisen nach",
-  "heel": "Ferse",
-  "copy": "Nachahmung",
-  "out of the way": "abseits vom Wege",
-  "sender": "Absender",
-  "intention": "Absicht",
-  "purpose": "Zweck",
-  "on purpose": "absichtlich",
-  "lock": "Türschloß",
-  "descend from": "abstammen von",
-  "dust": "Staub",
-  "vote": "Stimme des Wählers",
-  "crash": "zusammenstoßen",
-  "department": "Abteilung",
-  "downwards": "abwärts",
-  "variety": "Spielart",
-  "absent": "abwesend",
-  "absence": "Abwesenheit",
-  "fence off": "abzäunen",
-  "print": "Foto",
-  "eight": "acht",
-  "eighth": "achte",
-  "take care (of)": "achtgeben (auf)",
-  "eighteen": "achtzehn",
-  "eighteenth": "achtzehnte",
-  "eighty": "achtzig",
-  "eightieth": "achtzigste",
-  "nobility": "Adel",
-  "Lord": "Herrgott"
+// Comprehensive dictionaries
+const translations: Record<string, { de: string, fr: string, es: string }> = {
+  "turn": { de: "Wendung", fr: "tourner", es: "girar" },
+  "evening": { de: "Abend", fr: "soir", es: "tarde" },
+  "dinner": { de: "Abendessen", fr: "dîner", es: "cena" },
+  "adventure": { de: "Abenteuer", fr: "aventure", es: "aventura" },
+  "but": { de: "sondern", fr: "mais", es: "pero" },
+  "start": { de: "starten", fr: "démarrer", es: "empezar" },
+  "account": { de: "Konto", fr: "compte", es: "cuenta" },
+  "departure": { de: "Abreise", fr: "départ", es: "salida" },
+  "intention": { de: "Absicht", fr: "intention", es: "intención" },
+  "purpose": { de: "Zweck", fr: "but", es: "propósito" },
+  "eight": { de: "acht", fr: "huit", es: "ocho" },
+  "cat": { de: "Katze", fr: "chat", es: "gato" },
+  "dog": { de: "Hund", fr: "chien", es: "perro" },
+  "house": { de: "Haus", fr: "maison", es: "casa" },
+  "apple": { de: "Apfel", fr: "pomme", es: "manzana" },
+  "good": { de: "gut", fr: "bon", es: "bueno" },
+  "morning": { de: "Morgen", fr: "matin", es: "mañana" },
+  "thank you": { de: "danke", fr: "merci", es: "gracias" },
+  "please": { de: "bitte", fr: "s'il vous plaît", es: "por favor" },
 };
 
-// German to English vocabulary
-const germanToEnglishDict: Record<string, string> = {
-  "abbiegen": "turn",
-  "Abend": "evening",
-  "Abendessen": "dinner",
-  "Abendkleidung": "evening dress",
-  "Abenteuer": "adventure",
-  "aber": "but",
-  "abfahren": "leave (irr.)",
-  "Abfall": "waste",
-  "abfliegen": "start",
-  "Abgabe": "tax",
-  "abgehoben": "withdrawn",
-  "abgenutzt": "worn-out",
-  "Abgeordneter": "representative",
-  "Abgrenzung": "boundary",
-  "Abhang": "slope",
-  "abhängen": "depend",
-  "abhängig": "dependent",
-  "Abhängigkeit": "dependence"
-};
+
 
 // Generate vocabulary entries from dictionaries
 export function generateVocabularyEntries(): VocabularyEntry[] {
   let idCounter = 1;
 
-  return Object.entries(englishToGermanDict).map(([english, german]) => ({
+  return Object.entries(translations).map(([english, trans]) => ({
     id: `vocab-en-${idCounter++}`,
     english,
-    german,
+    german: trans.de,
+    french: trans.fr,
+    spanish: trans.es,
     category: categorizeWord(english),
     ageGroups: determineAgeGroups(english)
   }));
@@ -148,13 +86,13 @@ function determineAgeGroups(word: string): string[] {
   }
 
   const lowerWord = word.toLowerCase();
-  
+
   // Basic/common words suitable for younger learners
   const basicWords = ['the', 'a', 'is', 'cat', 'dog', 'house', 'car', 'sun', 'moon', 'red', 'blue'];
-  
+
   // Intermediate words
   const intermediateWords = ['because', 'although', 'however', 'different', 'important'];
-  
+
   // Advanced words
   const advancedWords = ['consequently', 'nevertheless', 'furthermore', 'sophisticated'];
 
@@ -172,7 +110,7 @@ function determineAgeGroups(word: string): string[] {
 
 export const vocabularyCategories = [
   'basic',
-  'numbers', 
+  'numbers',
   'family',
   'animals',
   'food',

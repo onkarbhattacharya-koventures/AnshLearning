@@ -5,29 +5,31 @@ import { words, sentences, paragraphs, stories, vocabularyEntries } from './data
 // Generate vocabulary-focused modules
 function generateVocabularyModules(): Module[] {
   const vocabModules: Module[] = [];
-  
+
   // Group vocabulary by category and age
   const categories = ['basic', 'numbers', 'family', 'animals', 'food', 'time', 'colors', 'body', 'verbs'];
   const ageGroupsList: AgeGroup[] = ['3-5', '5-8', '8-12', '13-15', '15-18'];
-  
+
   categories.forEach(category => {
     ageGroupsList.forEach(ageGroup => {
       const categoryWords = words.filter(w => {
         try {
-          return w.categoryId === category && 
-                 w.ageGroups && 
-                 w.ageGroups.includes(ageGroup);
+          return w.categoryId === category &&
+            w.ageGroups &&
+            w.ageGroups.includes(ageGroup);
         } catch {
           return false;
         }
       }).slice(0, 8); // Limit to 8 words per module
-      
+
       if (categoryWords.length > 0) {
         vocabModules.push({
           id: `vocab-${category}-${ageGroup}`,
-          title: { 
-            en: `${category.charAt(0).toUpperCase() + category.slice(1)} Vocabulary`, 
-            de: `${category.charAt(0).toUpperCase() + category.slice(1)} Wortschatz` 
+          title: {
+            en: `${category.charAt(0).toUpperCase() + category.slice(1)} Vocabulary`,
+            de: `${category.charAt(0).toUpperCase() + category.slice(1)} Wortschatz`,
+            fr: `Vocabulaire ${category}`,
+            es: `Vocabulario ${category}`
           },
           ageGroups: [ageGroup],
           content: categoryWords
@@ -35,7 +37,7 @@ function generateVocabularyModules(): Module[] {
       }
     });
   });
-  
+
   return vocabModules;
 }
 
@@ -51,7 +53,7 @@ export interface Module {
 export const modules: Module[] = [
   {
     id: 'module-1-3-animals',
-    title: { en: 'Fun with Animals', de: 'Spaß mit Tieren' },
+    title: { en: 'Fun with Animals', de: 'Spaß mit Tieren', fr: 'S\'amuser avec les animaux', es: 'Diversión con animales' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'cat'),
@@ -62,7 +64,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-1-3-home',
-    title: { en: 'My Home', de: 'Mein Zuhause' },
+    title: { en: 'My Home', de: 'Mein Zuhause', fr: 'Ma maison', es: 'Mi casa' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'house'),
@@ -73,7 +75,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-1-3-food',
-    title: { en: 'Yummy Food', de: 'Leckeres Essen' },
+    title: { en: 'Yummy Food', de: 'Leckeres Essen', fr: 'Nourriture délicieuse', es: 'Comida deliciosa' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'bread'),
@@ -82,7 +84,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-3-5-nature',
-    title: { en: 'Exploring Nature', de: 'Die Natur entdecken' },
+    title: { en: 'Exploring Nature', de: 'Die Natur entdecken', fr: 'Explorer la nature', es: 'Explorando la naturaleza' },
     ageGroups: ['3-5'],
     content: [
       words.find(w => w.id === 'apple'),
@@ -93,9 +95,9 @@ export const modules: Module[] = [
       words.find(w => w.id === 'star'),
     ].filter(Boolean) as (Word | Sentence | Paragraph | Story)[],
   },
-    {
+  {
     id: 'module-3-5-food',
-    title: { en: 'More Yummy Food', de: 'Mehr leckeres Essen' },
+    title: { en: 'More Yummy Food', de: 'Mehr leckeres Essen', fr: 'Encore plus de nourriture', es: 'Más comida deliciosa' },
     ageGroups: ['3-5'],
     content: [
       words.find(w => w.id === 'cheese'),
@@ -104,7 +106,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-5-8-school',
-    title: { en: 'Fun at School', de: 'Spaß in der Schule' },
+    title: { en: 'Fun at School', de: 'Spaß in der Schule', fr: 'S\'amuser à l\'école', es: 'Diversión en la escuela' },
     ageGroups: ['5-8'],
     content: [
       words.find(w => w.id === 'book'),
@@ -115,7 +117,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-5-8-people',
-    title: { en: 'My Friends and Family', de: 'Meine Freunde und Familie' },
+    title: { en: 'My Friends and Family', de: 'Meine Freunde und Familie', fr: 'Mes amis et ma famille', es: 'Mis amigos y familia' },
     ageGroups: ['5-8'],
     content: [
       words.find(w => w.id === 'family'),
@@ -126,7 +128,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-8-12-technology',
-    title: { en: 'Tech and the World', de: 'Technik und die Welt' },
+    title: { en: 'Tech and the World', de: 'Technik und die Welt', fr: 'La technologie et le monde', es: 'La tecnología y el mundo' },
     ageGroups: ['8-12', '13-15'],
     content: [
       words.find(w => w.id === 'computer'),
@@ -136,7 +138,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-13-15-world',
-    title: { en: 'Our World', de: 'Unsere Welt' },
+    title: { en: 'Our World', de: 'Unsere Welt', fr: 'Notre monde', es: 'Nuestro mundo' },
     ageGroups: ['13-15'],
     content: [
       paragraphs.find(p => p.id === 'p1'),
@@ -145,7 +147,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-15-18-future',
-    title: { en: 'The Future of the World', de: 'Die Zukunft der Welt' },
+    title: { en: 'The Future of the World', de: 'Die Zukunft der Welt', fr: 'L\'avenir du monde', es: 'El futuro del mundo' },
     ageGroups: ['15-18'],
     content: [
       words.find(w => w.id === 'bicycle'),

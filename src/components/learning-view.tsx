@@ -58,8 +58,14 @@ export function LearningView({ module, language }: LearningViewProps) {
 
   const handleSpeak = (text: string, lang: Language) => {
     if ('speechSynthesis' in window) {
+      const langMap: Record<Language, string> = {
+        en: 'en-US',
+        de: 'de-DE',
+        fr: 'fr-FR',
+        es: 'es-ES'
+      };
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang === 'en' ? 'en-US' : 'de-DE';
+      utterance.lang = langMap[lang] || 'en-US';
       utterance.rate = 0.8;
       window.speechSynthesis.cancel(); // Cancel any previous speech
       window.speechSynthesis.speak(utterance);

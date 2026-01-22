@@ -22,6 +22,85 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
     const [showResults, setShowResults] = useState(false);
     const [score, setScore] = useState(0);
 
+    const t = {
+        en: {
+            congrats: 'Congratulations!',
+            practice: 'Keep Practicing!',
+            scored: (s: number) => `You scored ${Math.round(s)}% on this quiz`,
+            yourScore: 'Your Score',
+            passingScore: 'Passing Score',
+            review: 'Review Answers',
+            yourAnswer: 'Your answer: ',
+            noAnswer: 'No answer',
+            correctAnswer: 'Correct answer: ',
+            tryAgain: 'Try Again',
+            continue: 'Continue Learning',
+            question: 'Question',
+            true: 'True',
+            false: 'False',
+            previous: 'Previous',
+            next: 'Next',
+            finish: 'Finish'
+        },
+        de: {
+            congrats: 'Herzlichen Glückwunsch!',
+            practice: 'Weiter üben!',
+            scored: (s: number) => `Du hast ${Math.round(s)}% in diesem Quiz erreicht`,
+            yourScore: 'Deine Punktzahl',
+            passingScore: 'Bestehensgrenze',
+            review: 'Antworten überprüfen',
+            yourAnswer: 'Deine Antwort: ',
+            noAnswer: 'Keine Antwort',
+            correctAnswer: 'Richtige Antwort: ',
+            tryAgain: 'Nochmal versuchen',
+            continue: 'Weiter lernen',
+            question: 'Frage',
+            true: 'Wahr',
+            false: 'Falsch',
+            previous: 'Zurück',
+            next: 'Weiter',
+            finish: 'Beenden'
+        },
+        fr: {
+            congrats: 'Félicitations !',
+            practice: 'Continuez à pratiquer !',
+            scored: (s: number) => `Vous avez obtenu ${Math.round(s)}% à ce quiz`,
+            yourScore: 'Votre score',
+            passingScore: 'Score de passage',
+            review: 'Réviser les réponses',
+            yourAnswer: 'Votre réponse : ',
+            noAnswer: 'Pas de réponse',
+            correctAnswer: 'Bonne réponse : ',
+            tryAgain: 'Réessayer',
+            continue: 'Continuer l\'apprentissage',
+            question: 'Question',
+            true: 'Vrai',
+            false: 'Faux',
+            previous: 'Précédent',
+            next: 'Suivant',
+            finish: 'Terminer'
+        },
+        es: {
+            congrats: '¡Felicidades!',
+            practice: '¡Sigue practicando!',
+            scored: (s: number) => `Has obtenido un ${Math.round(s)}% en este cuestionario`,
+            yourScore: 'Tu puntuación',
+            passingScore: 'Puntuación mínima',
+            review: 'Revisar respuestas',
+            yourAnswer: 'Tu respuesta: ',
+            noAnswer: 'Sin respuesta',
+            correctAnswer: 'Respuesta correcta: ',
+            tryAgain: 'Intentar de nuevo',
+            continue: 'Continuar aprendiendo',
+            question: 'Pregunta',
+            true: 'Verdadero',
+            false: 'Falso',
+            previous: 'Anterior',
+            next: 'Siguiente',
+            finish: 'Finalizar'
+        }
+    }[language];
+
     const currentQuestion = quiz.questions[currentQuestionIndex];
     const totalQuestions = quiz.questions.length;
     const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
@@ -84,28 +163,24 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                         )}
                     </div>
                     <CardTitle className="text-2xl">
-                        {passed
-                            ? language === 'en' ? 'Congratulations!' : 'Herzlichen Glückwunsch!'
-                            : language === 'en' ? 'Keep Practicing!' : 'Weiter üben!'}
+                        {passed ? t.congrats : t.practice}
                     </CardTitle>
                     <CardDescription>
-                        {language === 'en'
-                            ? `You scored ${Math.round(score)}% on this quiz`
-                            : `Du hast ${Math.round(score)}% in diesem Quiz erreicht`}
+                        {t.scored(score)}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-4">
                         <div className="flex justify-between text-sm">
                             <span>
-                                {language === 'en' ? 'Your Score' : 'Deine Punktzahl'}
+                                {t.yourScore}
                             </span>
                             <span className="font-bold">{Math.round(score)}%</span>
                         </div>
                         <Progress value={score} className="h-3" />
                         <div className="flex justify-between text-sm text-muted-foreground">
                             <span>
-                                {language === 'en' ? 'Passing Score' : 'Bestehensgrenze'}
+                                {t.passingScore}
                             </span>
                             <span>{quiz.passingScore}%</span>
                         </div>
@@ -114,7 +189,7 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                     {/* Question Review */}
                     <div className="space-y-3">
                         <h3 className="font-semibold">
-                            {language === 'en' ? 'Review Answers' : 'Antworten überprüfen'}
+                            {t.review}
                         </h3>
                         {quiz.questions.map((question, idx) => {
                             const userAnswer = selectedAnswers[question.id];
@@ -139,16 +214,16 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                                             </p>
                                             <p className="text-sm mt-1">
                                                 <span className="text-muted-foreground">
-                                                    {language === 'en' ? 'Your answer: ' : 'Deine Antwort: '}
+                                                    {t.yourAnswer}
                                                 </span>
                                                 <span className={isCorrect ? 'text-green-700' : 'text-red-700'}>
-                                                    {userAnswer || (language === 'en' ? 'No answer' : 'Keine Antwort')}
+                                                    {userAnswer || t.noAnswer}
                                                 </span>
                                             </p>
                                             {!isCorrect && (
                                                 <p className="text-sm mt-1">
                                                     <span className="text-muted-foreground">
-                                                        {language === 'en' ? 'Correct answer: ' : 'Richtige Antwort: '}
+                                                        {t.correctAnswer}
                                                     </span>
                                                     <span className="text-green-700">{correctAnswer}</span>
                                                 </p>
@@ -167,10 +242,10 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
 
                     <div className="flex gap-3">
                         <Button onClick={handleRetry} variant="outline" className="flex-1">
-                            {language === 'en' ? 'Try Again' : 'Nochmal versuchen'}
+                            {t.tryAgain}
                         </Button>
                         <Button onClick={() => window.history.back()} className="flex-1">
-                            {language === 'en' ? 'Continue Learning' : 'Weiter lernen'}
+                            {t.continue}
                         </Button>
                     </div>
                 </CardContent>
@@ -183,7 +258,7 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
             <CardHeader>
                 <div className="flex justify-between items-center mb-2">
                     <CardTitle className="text-lg">
-                        {language === 'en' ? 'Question' : 'Frage'} {currentQuestionIndex + 1} / {totalQuestions}
+                        {t.question} {currentQuestionIndex + 1} / {totalQuestions}
                     </CardTitle>
                     <span className="text-sm text-muted-foreground">
                         {Math.round(progress)}%
@@ -230,13 +305,13 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                                 <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-accent cursor-pointer transition-colors">
                                     <RadioGroupItem value="true" id="true" />
                                     <Label htmlFor="true" className="flex-1 cursor-pointer">
-                                        {language === 'en' ? 'True' : 'Wahr'}
+                                        {t.true}
                                     </Label>
                                 </div>
                                 <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-accent cursor-pointer transition-colors">
                                     <RadioGroupItem value="false" id="false" />
                                     <Label htmlFor="false" className="flex-1 cursor-pointer">
-                                        {language === 'en' ? 'False' : 'Falsch'}
+                                        {t.false}
                                     </Label>
                                 </div>
                             </div>
@@ -251,7 +326,7 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                         disabled={currentQuestionIndex === 0}
                         className="flex-1"
                     >
-                        {language === 'en' ? 'Previous' : 'Zurück'}
+                        {t.previous}
                     </Button>
                     <Button
                         onClick={handleNext}
@@ -259,8 +334,8 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
                         className="flex-1"
                     >
                         {currentQuestionIndex === totalQuestions - 1
-                            ? language === 'en' ? 'Finish' : 'Beenden'
-                            : language === 'en' ? 'Next' : 'Weiter'}
+                            ? t.finish
+                            : t.next}
                     </Button>
                 </div>
             </CardContent>

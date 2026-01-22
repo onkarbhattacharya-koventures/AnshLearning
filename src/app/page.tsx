@@ -14,12 +14,25 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft, BookOpen, Search } from 'lucide-react';
 import { TranslationFooter } from '@/components/translation-footer';
+import { ResourceLibrary } from '@/components/resource-library';
+import { Library } from 'lucide-react';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
   const [currentAgeGroup, setCurrentAgeGroup] = useState<AgeGroup | null>(null);
   const [currentModule, setCurrentModule] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState('learn');
+
+  const tabTranslations = {
+    learn: { en: 'Learn', de: 'Lernen', fr: 'Apprendre', es: 'Aprender' },
+    vocabulary: { en: 'Vocabulary', de: 'Wortschatz', fr: 'Vocabulaire', es: 'Vocabulario' },
+    library: { en: 'Library', de: 'Bibliothek', fr: 'Bibliothèque', es: 'Biblioteca' },
+  };
+
+  const backTranslations = {
+    modules: { en: 'Back to Modules', de: 'Zurück zu den Modulen', fr: 'Retour aux modules', es: 'Volver a los módulos' },
+    ageGroups: { en: 'Back to Age Groups', de: 'Zurück zu den Altersgruppen', fr: 'Retour aux groupes d\'âge', es: 'Volver a los grupos de edad' },
+  };
 
   const handleAgeSelect = (ageGroup: AgeGroup) => {
     setCurrentAgeGroup(ageGroup);
@@ -71,13 +84,6 @@ export default function Home() {
     );
   };
 
-  const renderContent = () => {
-    if (activeTab === 'vocabulary') {
-      return <VocabularyBrowser language={language} />;
-    }
-    return renderLearningContent();
-  };
-
   return (
     <div className="flex min-h-screen w-full flex-col items-center p-4 sm:p-6 md:p-8">
       <header className="flex w-full max-w-5xl items-center justify-between">
@@ -97,21 +103,25 @@ export default function Home() {
               <Button variant="ghost" onClick={currentModule ? resetModule : resetAgeGroup}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 {currentModule
-                  ? `Back to Modules`
-                  : `Back to Age Groups`}
+                  ? backTranslations.modules[language]
+                  : backTranslations.ageGroups[language]}
               </Button>
             </div>
           )}
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="learn" className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4" />
-                Learn
+                {tabTranslations.learn[language]}
               </TabsTrigger>
               <TabsTrigger value="vocabulary" className="flex items-center gap-2">
                 <Search className="h-4 w-4" />
-                Vocabulary
+                {tabTranslations.vocabulary[language]}
+              </TabsTrigger>
+              <TabsTrigger value="library" className="flex items-center gap-2">
+                <Library className="h-4 w-4" />
+                {tabTranslations.library[language]}
               </TabsTrigger>
             </TabsList>
 
@@ -121,6 +131,10 @@ export default function Home() {
 
             <TabsContent value="vocabulary" className="mt-0">
               <VocabularyBrowser language={language} />
+            </TabsContent>
+
+            <TabsContent value="library" className="mt-0">
+              <ResourceLibrary language={language} />
             </TabsContent>
           </Tabs>
         </div>

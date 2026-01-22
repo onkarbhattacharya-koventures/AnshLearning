@@ -8,8 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Volume2, Search } from 'lucide-react';
 
+import type { Language } from '@/lib/data';
+
 interface VocabularyBrowserProps {
-  language: 'en' | 'de';
+  language: Language;
 }
 
 export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
@@ -19,7 +21,9 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
   const filteredEntries = vocabularyEntries.filter(entry => {
     const matchesSearch = searchTerm === '' ||
       entry.english.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.german.toLowerCase().includes(searchTerm.toLowerCase());
+      entry.german.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      entry.french.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      entry.spanish.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory = !selectedCategory || entry.category === selectedCategory;
 
@@ -28,10 +32,16 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
 
   const categories = [...new Set(vocabularyEntries.map(e => e.category).filter(Boolean))];
 
-  const handleSpeak = (text: string, lang: 'en' | 'de') => {
+  const handleSpeak = (text: string, lang: Language) => {
     if ('speechSynthesis' in window) {
+      const langMap: Record<Language, string> = {
+        en: 'en-US',
+        de: 'de-DE',
+        fr: 'fr-FR',
+        es: 'es-ES'
+      };
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang === 'en' ? 'en-US' : 'de-DE';
+      utterance.lang = langMap[lang] || 'en-US';
       utterance.rate = 0.8;
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
@@ -77,12 +87,12 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">
-                  {language === 'en' ? entry.english : entry.german}
+                  {entry[language === 'en' ? 'english' : language === 'de' ? 'german' : language === 'fr' ? 'french' : 'spanish']}
                 </CardTitle>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => handleSpeak(language === 'en' ? entry.english : entry.german, language)}
+                  onClick={() => handleSpeak(entry[language === 'en' ? 'english' : language === 'de' ? 'german' : language === 'fr' ? 'french' : 'spanish'], language)}
                 >
                   <Volume2 className="h-4 w-4" />
                 </Button>
@@ -91,6 +101,8 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
             <CardContent>
               <p className="text-muted-foreground mb-2">
                 {language === 'en' ? entry.german : entry.english}
+                {language !== 'fr' && language !== 'de' && ` • ${entry.french}`}
+                {language !== 'es' && ` • ${entry.spanish}`}
               </p>
               <div className="flex flex-wrap gap-1">
                 {entry.category && (

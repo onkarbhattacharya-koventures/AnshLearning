@@ -14,8 +14,17 @@ import {
     Check,
     Loader2,
     ChevronUp,
-    ChevronDown
+    ChevronDown,
+    Globe,
+    Languages
 } from 'lucide-react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import type { Language } from '@/lib/data';
 
 interface TranslationFooterProps {
@@ -33,6 +42,15 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
     const [isCopied, setIsCopied] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    const languages: { code: Language; name: string; flag: string; locale: string }[] = [
+        { code: 'en', name: 'English', flag: '🇺🇸', locale: 'en-US' },
+        { code: 'de', name: 'German', flag: '🇩🇪', locale: 'de-DE' },
+        { code: 'fr', name: 'French', flag: '🇫🇷', locale: 'fr-FR' },
+        { code: 'es', name: 'Spanish', flag: '🇪🇸', locale: 'es-ES' },
+    ];
+
+    const getLangInfo = (code: Language) => languages.find(l => l.code === code) || languages[0];
+
     const recognitionRef = useRef<any>(null);
 
     // Initialize speech recognition
@@ -42,7 +60,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.continuous = false;
             recognitionRef.current.interimResults = false;
-            recognitionRef.current.lang = sourceLanguage === 'en' ? 'en-US' : 'de-DE';
+            recognitionRef.current.lang = getLangInfo(sourceLanguage).locale;
 
             recognitionRef.current.onresult = (event: any) => {
                 const transcript = event.results[0][0].transcript;
@@ -71,7 +89,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
     // Update recognition language when source language changes
     useEffect(() => {
         if (recognitionRef.current) {
-            recognitionRef.current.lang = sourceLanguage === 'en' ? 'en-US' : 'de-DE';
+            recognitionRef.current.lang = getLangInfo(sourceLanguage).locale;
         }
     }, [sourceLanguage]);
 
@@ -127,16 +145,16 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
     const getFallbackTranslation = (text: string, from: Language, to: Language): string => {
         // Simple fallback translations for common phrases
         const translations: Record<string, Record<Language, string>> = {
-            'hello': { en: 'hello', de: 'hallo' },
-            'goodbye': { en: 'goodbye', de: 'auf wiedersehen' },
-            'thank you': { en: 'thank you', de: 'danke' },
-            'please': { en: 'please', de: 'bitte' },
-            'yes': { en: 'yes', de: 'ja' },
-            'no': { en: 'no', de: 'nein' },
-            'good morning': { en: 'good morning', de: 'guten morgen' },
-            'good night': { en: 'good night', de: 'gute nacht' },
-            'how are you': { en: 'how are you', de: 'wie geht es dir' },
-            'i love you': { en: 'i love you', de: 'ich liebe dich' },
+            'hello': { en: 'hello', de: 'hallo', fr: 'bonjour', es: 'hola' },
+            'goodbye': { en: 'goodbye', de: 'auf wiedersehen', fr: 'au revoir', es: 'adiós' },
+            'thank you': { en: 'thank you', de: 'danke', fr: 'merci', es: 'gracias' },
+            'please': { en: 'please', de: 'bitte', fr: 's\'il vous plaît', es: 'por favor' },
+            'yes': { en: 'yes', de: 'ja', fr: 'oui', es: 'sí' },
+            'no': { en: 'no', de: 'nein', fr: 'non', es: 'no' },
+            'good morning': { en: 'good morning', de: 'guten morgen', fr: 'bonjour', es: 'buenos días' },
+            'good night': { en: 'good night', de: 'gute nacht', fr: 'bonne nuit', es: 'buenas noches' },
+            'how are you': { en: 'how are you', de: 'wie geht es dir', fr: 'comment ça va', es: 'cómo estás' },
+            'i love you': { en: 'i love you', de: 'ich liebe dich', fr: 'je t\'aime', es: 'te amo' },
         };
 
         const lowerText = text.toLowerCase().trim();
@@ -166,7 +184,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
     const handleSpeak = (text: string, lang: Language) => {
         if ('speechSynthesis' in window && text) {
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang === 'en' ? 'en-US' : 'de-DE';
+            utterance.lang = getLangInfo(lang).locale;
             utterance.rate = 0.9;
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(utterance);
@@ -208,10 +226,10 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
                 <div className="flex items-center gap-2">
                     <ArrowRightLeft className="h-4 w-4 text-primary" />
                     <span className="font-semibold text-sm">
-                        {sourceLanguage === 'en' ? 'English' : 'German'} → {targetLanguage === 'en' ? 'English' : 'German'} Translator
+                        {getLangInfo(sourceLanguage).name} → {getLangInfo(targetLanguage).name} Translator
                     </span>
                     <Badge variant="secondary" className="text-xs">
-                        Type or Speak
+                        EN, DE, FR, ES Supported
                     </Badge>
                 </div>
                 {isExpanded ? (
@@ -230,9 +248,18 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
                             <CardContent className="p-4 space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <Badge variant={sourceLanguage === 'en' ? 'default' : 'outline'}>
-                                            {sourceLanguage === 'en' ? 'English' : 'German'}
-                                        </Badge>
+                                        <Select value={sourceLanguage} onValueChange={(val) => setSourceLanguage(val as Language)}>
+                                            <SelectTrigger className="w-[130px] h-8">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {languages.map(lang => (
+                                                    <SelectItem key={lang.code} value={lang.code}>
+                                                        {lang.flag} {lang.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                         <Button
                                             variant="ghost"
                                             size="sm"
@@ -273,7 +300,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
                                 </div>
 
                                 <Textarea
-                                    placeholder={`Type in ${sourceLanguage === 'en' ? 'English' : 'German'}...`}
+                                    placeholder={`Type in ${getLangInfo(sourceLanguage).name}...`}
                                     value={inputText}
                                     onChange={(e) => setInputText(e.target.value)}
                                     className="min-h-[120px] resize-none"
@@ -311,9 +338,18 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
                         <Card>
                             <CardContent className="p-4 space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <Badge variant={targetLanguage === 'en' ? 'default' : 'outline'}>
-                                        {targetLanguage === 'en' ? 'English' : 'German'}
-                                    </Badge>
+                                    <Select value={targetLanguage} onValueChange={(val) => setTargetLanguage(val as Language)}>
+                                        <SelectTrigger className="w-[130px] h-8">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {languages.map(lang => (
+                                                <SelectItem key={lang.code} value={lang.code}>
+                                                    {lang.flag} {lang.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                     <div className="flex gap-2">
                                         <Button
                                             variant="outline"
