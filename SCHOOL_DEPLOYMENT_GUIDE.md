@@ -38,7 +38,7 @@ LanguageKids is an interactive language learning platform designed for students 
 ### Option 1: Cloud Deployment (Recommended)
 The application is hosted on Firebase and accessible via web browser.
 
-**URL**: [To be provided after deployment]
+**URL**: http://tiny.cc/AnshLearning
 
 **Advantages**:
 - No installation required
