@@ -4,6 +4,8 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
+  basePath: '/AnshLearning',
+  assetPrefix: '/AnshLearning',
   images: {
     unoptimized: true,
     remotePatterns: [
