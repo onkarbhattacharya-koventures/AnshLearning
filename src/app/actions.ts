@@ -1,19 +1,16 @@
 // src/app/actions.ts
-'use server';
+// Mock implementation for static export - pronunciation feedback disabled
 
 import {
-  getPronunciationFeedback,
   type PronunciationFeedbackInput,
 } from '@/ai/flows/pronunciation-feedback';
 
 export async function getPronunciationFeedbackAction(
   input: PronunciationFeedbackInput
 ) {
-  try {
-    const result = await getPronunciationFeedback(input);
-    return { success: true, data: result };
-  } catch (error) {
-    console.error('Error in getPronunciationFeedbackAction:', error);
-    return { success: false, error: 'Failed to get pronunciation feedback.' };
-  }
+  // Mock response for static export
+  return { 
+    success: false, 
+    error: 'Pronunciation feedback is not available in the static version. Please use the full deployment for AI features.' 
+  };
 }
