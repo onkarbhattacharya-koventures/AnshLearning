@@ -33,6 +33,41 @@ const translations: Record<string, { de: string, fr: string, es: string, hi: str
   "morning": { de: "Morgen", fr: "matin", es: "mañana", hi: "सुबह" },
   "thank you": { de: "danke", fr: "merci", es: "gracias", hi: "शुक्रिया" },
   "please": { de: "bitte", fr: "s'il vous plaît", es: "por favor", hi: "कृपया" },
+  // Space & Science (Ages 8-12, 13-15)
+  "planet": { de: "Planet", fr: "planète", es: "planeta", hi: "ग्रह" },
+  "universe": { de: "Universum", fr: "univers", es: "universo", hi: "ब्रह्मांड" },
+  "gravity": { de: "Schwerkraft", fr: "gravité", es: "gravedad", hi: "गुरुत्वाकर्षण" },
+  "galaxy": { de: "Galaxie", fr: "galaxie", es: "galaxia", hi: "आकाशगंगा" },
+  "astronaut": { de: "Astronaut", fr: "astronaute", es: "astronauta", hi: "अंतरिक्ष यात्री" },
+  "telescope": { de: "Teleskop", fr: "télescope", es: "telescopio", hi: "दूरबीन" },
+  // Nature & Earth (Ages 5-8, 8-12)
+  "volcano": { de: "Vulkan", fr: "volcan", es: "volcán", hi: "ज्वालामुखी" },
+  "mountain": { de: "Berg", fr: "montagne", es: "montaña", hi: "पहाड़" },
+  "ocean": { de: "Ozean", fr: "océan", es: "océano", hi: "समुद्र" },
+  "glacier": { de: "Gletscher", fr: "glacier", es: "glaciar", hi: "ग्लेशियर" },
+  "forest": { de: "Wald", fr: "forêt", es: "bosque", hi: "जंगल" },
+  "island": { de: "Insel", fr: "île", es: "isla", hi: "द्वीप" },
+  // History & Culture (Ages 8-12, 13-15)
+  "castle": { de: "Schloss", fr: "château", es: "castillo", hi: "किला" },
+  "pyramid": { de: "Pyramide", fr: "pyramide", es: "pirámide", hi: "पिरामिड" },
+  "history": { de: "Geschichte", fr: "histoire", es: "historia", hi: "इतिहास" },
+  "empire": { de: "Reich", fr: "empire", es: "imperio", hi: "साम्राज्य" },
+  "ancient": { de: "antik", fr: "ancien", es: "antiguo", hi: "प्राचीन" },
+  "knight": { de: "Ritter", fr: "chevalier", es: "caballero", hi: "योद्धा" },
+  // Human Body (Ages 3-5, 5-8, 8-12)
+  "brain": { de: "Gehirn", fr: "cerveau", es: "cerebro", hi: "मस्तिष्क" },
+  "heart": { de: "Herz", fr: "cœur", es: "corazón", hi: "दिल" },
+  "skeleton": { de: "Skelett", fr: "squelette", es: "esqueleto", hi: "कंकाल" },
+  "muscle": { de: "Muskel", fr: "muscle", es: "músculo", hi: "मांसपेशी" },
+  "stomach": { de: "Magen", fr: "estomac", es: "estómago", hi: "पेट" },
+  "blood": { de: "Blut", fr: "sang", es: "sangre", hi: "रक्त" },
+  // Technology (Ages 8-12, 13-15, 15-18)
+  "internet": { de: "Internet", fr: "internet", es: "internet", hi: "इंटरनेट" },
+  "software": { de: "Software", fr: "logiciel", es: "software", hi: "सॉफ्टवेयर" },
+  "energy": { de: "Energie", fr: "énergie", es: "energía", hi: "ऊर्जा" },
+  "robot": { de: "Roboter", fr: "robot", es: "robot", hi: "रोबोट" },
+  "electricity": { de: "Elektrizität", fr: "électricité", es: "electricidad", hi: "बिजली" },
+  "satellite": { de: "Satellit", fr: "satellite", es: "satélite", hi: "उपग्रह" },
 };
 
 
@@ -67,8 +102,12 @@ function categorizeWord(word: string): string {
     'food': ['bread', 'milk', 'cheese', 'food', 'eat', 'drink'],
     'time': ['day', 'night', 'morning', 'evening', 'today', 'tomorrow'],
     'colors': ['red', 'blue', 'green', 'yellow', 'black', 'white'],
-    'body': ['hand', 'foot', 'head', 'eye', 'nose', 'mouth'],
-    'verbs': ['go', 'come', 'see', 'look', 'make', 'take', 'give', 'speak', 'walk', 'run']
+    'body': ['hand', 'foot', 'head', 'eye', 'nose', 'mouth', 'brain', 'heart', 'skeleton', 'muscle', 'stomach', 'blood'],
+    'verbs': ['go', 'come', 'see', 'look', 'make', 'take', 'give', 'speak', 'walk', 'run'],
+    'space': ['planet', 'universe', 'gravity', 'galaxy', 'astronaut', 'telescope', 'satellite'],
+    'earth': ['volcano', 'mountain', 'ocean', 'glacier', 'forest', 'island'],
+    'history': ['castle', 'pyramid', 'history', 'empire', 'ancient', 'knight'],
+    'technology': ['internet', 'software', 'energy', 'robot', 'electricity']
   };
 
   const lowerWord = word.toLowerCase();
@@ -98,8 +137,18 @@ function determineAgeGroups(word: string): string[] {
   // Advanced words
   const advancedWords = ['consequently', 'nevertheless', 'furthermore', 'sophisticated'];
 
+  // Space & Tech keywords (Intermediate/Advanced)
+  const spaceTech = ['planet', 'universe', 'gravity', 'internet', 'software', 'robot', 'satellite'];
+
+  // History & Geography
+  const historyGeo = ['history', 'empire', 'ancient', 'glacier', 'volcano'];
+
   if (basicWords.some(w => lowerWord.includes(w))) {
-    return ['3-5', '5-8', '8-12'];
+    return ['1-3', '3-5', '5-8'];
+  } else if (spaceTech.some(w => lowerWord.includes(w))) {
+    return ['8-12', '13-15', '15-18'];
+  } else if (historyGeo.some(w => lowerWord.includes(w))) {
+    return ['5-8', '8-12', '13-15'];
   } else if (intermediateWords.some(w => lowerWord.includes(w))) {
     return ['8-12', '13-15'];
   } else if (advancedWords.some(w => lowerWord.includes(w))) {
@@ -120,6 +169,10 @@ export const vocabularyCategories = [
   'colors',
   'body',
   'verbs',
+  'space',
+  'earth',
+  'history',
+  'technology',
   'general'
 ] as const;
 

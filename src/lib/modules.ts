@@ -7,7 +7,7 @@ function generateVocabularyModules(): Module[] {
   const vocabModules: Module[] = [];
 
   // Group vocabulary by category and age
-  const categories = ['basic', 'numbers', 'family', 'animals', 'food', 'time', 'colors', 'body', 'verbs'];
+  const categories = ['basic', 'numbers', 'family', 'animals', 'food', 'time', 'colors', 'body', 'verbs', 'space', 'earth', 'history', 'technology'];
   const ageGroupsList: AgeGroup[] = ['3-5', '5-8', '8-12', '13-15', '15-18'];
 
   categories.forEach(category => {
@@ -30,7 +30,7 @@ function generateVocabularyModules(): Module[] {
             de: `${category.charAt(0).toUpperCase() + category.slice(1)} Wortschatz`,
             fr: `Vocabulaire ${category}`,
             es: `Vocabulario ${category}`,
-            hi: `${category === 'basic' ? 'बुनियादी' : category === 'numbers' ? 'संख्या' : category === 'family' ? 'परिवार' : category === 'animals' ? 'जानवर' : category === 'food' ? 'खाना' : category === 'time' ? 'समय' : category === 'colors' ? 'रंग' : category === 'body' ? 'शरीर' : 'क्रिया'} शब्दावली`
+            hi: `${category === 'basic' ? 'बुनियादी' : category === 'numbers' ? 'संख्या' : category === 'family' ? 'परिवार' : category === 'animals' ? 'जानवर' : category === 'food' ? 'खाना' : category === 'time' ? 'समय' : category === 'colors' ? 'रंग' : category === 'body' ? 'शरीर' : category === 'space' ? 'अंतरिक्ष' : category === 'earth' ? 'पृथ्वी' : category === 'history' ? 'इतिहास' : category === 'technology' ? 'तकनीक' : 'क्रिया'} शब्दावली`
           },
           ageGroups: [ageGroup],
           content: categoryWords
