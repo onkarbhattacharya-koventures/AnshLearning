@@ -13,6 +13,69 @@ export interface Resource {
 export const resources: Resource[] = [
     // Ebooks
     {
+        id: 'wikibooks-german-kids',
+        title: {
+            en: 'Wikibooks - German for Children',
+            de: 'Wikibooks - Deutsch für Kinder',
+            fr: 'Wikibooks - L\'allemand pour les enfants',
+            es: 'Wikibooks - Alemán para niños',
+            hi: 'विकिबुक्स - बच्चों के लिए जर्मन',
+        },
+        description: {
+            en: 'A free open-content textbook for children to learn German, featuring basic vocabulary and simple grammar.',
+            de: 'Ein freies Lehrbuch für Kinder zum Deutschlernen mit Grundwortschatz und einfacher Grammatik.',
+            fr: 'Un manuel libre pour que les enfants apprennent l\'allemand, avec un vocabulaire de base et une grammaire simple.',
+            es: 'Un libro de texto de contenido abierto gratuito para que los niños aprendan alemán, con vocabulario básico y gramática sencilla.',
+            hi: 'बच्चों के लिए जर्मन सीखने के लिए एक मुफ़्त ओपन-कंटेंट पाठ्यपुस्तक, जिसमें बुनियादी शब्दावली और सरल व्याकरण शामिल है।',
+        },
+        url: 'https://en.wikibooks.org/wiki/German/German_for_Children',
+        type: 'ebook',
+        languages: ['en', 'de'],
+        tags: ['wikibooks', 'german', 'beginner'],
+    },
+    {
+        id: 'wikibooks-spanish-elementary',
+        title: {
+            en: 'Wikibooks - Elementary Spanish',
+            de: 'Wikibooks - Spanisch für die Grundschule',
+            fr: 'Wikibooks - Espagnol élémentaire',
+            es: 'Wikibooks - Español elemental',
+            hi: 'विकिबुक्स - प्रारंभिक स्पेनिश',
+        },
+        description: {
+            en: 'An introductory Spanish textbook focused on conversational skills and basic concepts for young learners.',
+            de: 'Ein einführendes Spanisch-Lehrbuch, das sich auf Konversationsfähigkeiten und Grundkonzepte für junge Lernende konzentriert.',
+            fr: 'Un manuel d\'espagnol d\'introduction axé sur les compétences conversationnelles et les concepts de base pour les jeunes apprenants.',
+            es: 'Un libro de texto de introducción al español enfocado en habilidades conversacionales y conceptos básicos para jóvenes estudiantes.',
+            hi: 'युवा शिक्षार्थियों के लिए संवादात्मक कौशल और बुनियादी अवधारणाओं पर केंद्रित एक परिचयात्मक स्पेनिश पाठ्यपुस्तक।',
+        },
+        url: 'https://en.wikibooks.org/wiki/Elementary_Spanish',
+        type: 'ebook',
+        languages: ['en', 'es'],
+        tags: ['wikibooks', 'spanish', 'beginner'],
+    },
+    {
+        id: 'wikijunior-languages',
+        title: {
+            en: 'Wikijunior - Languages',
+            de: 'Wikijunior - Sprachen',
+            fr: 'Wikijunior - Langues',
+            es: 'Wikijunior - Idiomas',
+            hi: 'विकिजूनियर - भाषाएं',
+        },
+        description: {
+            en: 'A colorful introduction to the languages of the world, designed specifically for children aged 8 to 12.',
+            de: 'Eine farbenfrohe Einführung in die Sprachen der Welt, speziell für Kinder im Alter von 8 bis 12 Jahren entwickelt.',
+            fr: 'Une introduction colorée aux langues du monde, conçue spécifiquement pour les enfants de 8 à 12 ans.',
+            es: 'Una colorida introducción a los idiomas del mundo, diseñada específicamente para niños de 8 a 12 años.',
+            hi: 'दुनिया की भाषाओं का एक रंगीन परिचय, विशेष रूप से 8 से 12 वर्ष की आयु के बच्चों के लिए डिज़ाइन किया गया।',
+        },
+        url: 'https://en.wikibooks.org/wiki/Wikijunior:Languages',
+        type: 'ebook',
+        languages: ['en', 'de', 'fr', 'es'],
+        tags: ['wikijunior', 'multilingual', 'culture'],
+    },
+    {
         id: 'oer-global-storybooks',
         title: {
             en: 'Global Storybooks - Multilingual Tales',

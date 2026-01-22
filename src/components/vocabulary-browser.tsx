@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Volume2, Search, Inbox, AlertCircle } from 'lucide-react';
+import { Volume2, Search, Inbox, AlertCircle, ExternalLink } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import type { Language } from '@/lib/data';
@@ -178,6 +178,22 @@ export function VocabularyBrowser({ language }: VocabularyBrowserProps) {
                       {age}
                     </div>
                   ))}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="ml-auto rounded-xl h-8 px-3 text-[10px] font-bold uppercase tracking-wider hover:bg-slate-100"
+                    asChild
+                  >
+                    <a
+                      href={`https://${language}.wiktionary.org/wiki/${getDisplayWord(entry, language).split(' ')[0].toLowerCase()}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5"
+                    >
+                      Wiktionary
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
