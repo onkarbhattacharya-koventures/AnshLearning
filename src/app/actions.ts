@@ -11,6 +11,7 @@ export async function getPronunciationFeedbackAction(
   // Mock response for static export
   return { 
     success: false, 
-    error: 'Pronunciation feedback is not available in the static version. Please use the full deployment for AI features.' 
+    error: 'Pronunciation feedback is not available in the static version. Please use the full deployment for AI features.',
+    data: null
   };
 }

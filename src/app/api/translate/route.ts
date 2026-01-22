@@ -61,14 +61,35 @@ export async function POST(request: NextRequest) {
         );
 
         if (!response.ok) {
-            throw new Error('Translation API request failed');
+            const errorText = await response.text().catch(() => 'Unknown error');
+            console.error(`Translation API error: ${response.status} - ${errorText}`);
+            
+            if (response.status === 429) {
+                return NextResponse.json(
+                    { error: 'Translation service rate limit exceeded. Please try again later.' },
+                    { status: 429 }
+                );
+            }
+            
+            if (response.status === 401 || response.status === 403) {
+                return NextResponse.json(
+                    { error: 'Translation service authentication failed' },
+                    { status: 500 }
+                );
+            }
+            
+            throw new Error(`API request failed with status ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = await response.json().catch(() => {
+            throw new Error('Invalid response format from translation service');
+        });
+        
         const translatedText = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
 
         if (!translatedText) {
-            throw new Error('No translation received');
+            console.error('Empty translation response:', data);
+            throw new Error('No translation received from service');
         }
 
         return NextResponse.json({ translatedText });

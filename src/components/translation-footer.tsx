@@ -50,8 +50,14 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
         { code: 'hi', name: 'Hindi', flag: '🇮🇳', locale: 'hi-IN' },
     ];
 
+    /**
+     * Helper to get full language information from a language code.
+     */
     const getLangInfo = (code: Language) => languages.find(l => l.code === code) || languages[0];
 
+    /**
+     * Reference to the Web Speech API recognition object.
+     */
     const recognitionRef = useRef<any>(null);
 
     // Initialize speech recognition
@@ -70,7 +76,9 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
             };
 
             recognitionRef.current.onerror = (event: any) => {
-                console.error('Speech recognition error:', event.error);
+                // Use a safe string for logging to prevent log injection
+                const errorType = String(event.error || 'unknown');
+                console.error(`Speech recognition error type: ${errorType}`);
                 setError('Could not recognize speech. Please try again.');
                 setIsListening(false);
             };
@@ -133,11 +141,34 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
             }
 
             const data = await response.json();
-            setTranslatedText(data.translatedText);
+            // Sanitize the translated text to prevent XSS
+            const sanitizedText = data.translatedText?.replace(/[<>"'&]/g, (match: string) => {
+                const escapeMap: Record<string, string> = {
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#x27;',
+                    '&': '&amp;'
+                };
+                return escapeMap[match] || match;
+            }) || '';
+            setTranslatedText(sanitizedText);
         } catch (err) {
-            console.error('Translation error:', err);
-            // Fallback to simple word-by-word translation for demo
-            setTranslatedText(getFallbackTranslation(inputText, sourceLanguage, targetLanguage));
+            const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+            console.error(`Translation process error: ${errorMsg}`);
+            // Sanitize fallback translation to prevent XSS
+            const fallbackText = getFallbackTranslation(inputText, sourceLanguage, targetLanguage);
+            const sanitizedFallback = fallbackText.replace(/[<>"'&]/g, (match: string) => {
+                const escapeMap: Record<string, string> = {
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#x27;',
+                    '&': '&amp;'
+                };
+                return escapeMap[match] || match;
+            });
+            setTranslatedText(sanitizedFallback);
         } finally {
             setIsTranslating(false);
         }

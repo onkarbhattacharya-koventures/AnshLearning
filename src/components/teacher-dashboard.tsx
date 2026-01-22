@@ -25,6 +25,20 @@ interface TeacherDashboardProps {
 export function TeacherDashboard({ classData }: TeacherDashboardProps) {
     const [selectedStudent, setSelectedStudent] = useState<StudentProgress | null>(null);
 
+    const getModuleCompletionData = () => {
+        const categories = ['Animals', 'Colors', 'Numbers', 'Food', 'Nature'];
+        return categories.map(name => ({
+            name,
+            completion: Math.floor(Math.random() * 40 + 60)
+        }));
+    };
+
+    const getTopPerformers = () => {
+        return classData.students
+            .sort((a, b) => b.progress.totalPoints - a.progress.totalPoints)
+            .slice(0, 5);
+    };
+
     return (
         <div className="container mx-auto p-6 space-y-6">
             {/* Header */}
@@ -231,15 +245,15 @@ export function TeacherDashboard({ classData }: TeacherDashboardProps) {
                                 <div>
                                     <h4 className="font-semibold mb-4">Module Completion Rate</h4>
                                     <div className="space-y-2">
-                                        {['Animals', 'Colors', 'Numbers', 'Food', 'Nature'].map((category) => (
-                                            <div key={category}>
+                                        {getModuleCompletionData().map((category) => (
+                                            <div key={category.name}>
                                                 <div className="flex justify-between mb-1">
-                                                    <span className="text-sm">{category}</span>
+                                                    <span className="text-sm">{category.name}</span>
                                                     <span className="text-sm text-muted-foreground">
-                                                        {Math.floor(Math.random() * 40 + 60)}%
+                                                        {category.completion}%
                                                     </span>
                                                 </div>
-                                                <Progress value={Math.random() * 40 + 60} />
+                                                <Progress value={category.completion} />
                                             </div>
                                         ))}
                                     </div>
@@ -248,23 +262,20 @@ export function TeacherDashboard({ classData }: TeacherDashboardProps) {
                                 <div>
                                     <h4 className="font-semibold mb-4">Top Performers</h4>
                                     <div className="space-y-2">
-                                        {classData.students
-                                            .sort((a, b) => b.progress.totalPoints - a.progress.totalPoints)
-                                            .slice(0, 5)
-                                            .map((student, idx) => (
-                                                <div
-                                                    key={student.studentId}
-                                                    className="flex items-center justify-between p-2 bg-accent rounded"
-                                                >
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="font-bold text-lg">#{idx + 1}</span>
-                                                        <span>{student.studentName}</span>
-                                                    </div>
-                                                    <span className="font-semibold">
-                                                        {student.progress.totalPoints} pts
-                                                    </span>
+                                        {getTopPerformers().map((student, idx) => (
+                                            <div
+                                                key={student.studentId}
+                                                className="flex items-center justify-between p-2 bg-accent rounded"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <span className="font-bold text-lg">#{idx + 1}</span>
+                                                    <span>{student.studentName}</span>
                                                 </div>
-                                            ))}
+                                                <span className="font-semibold">
+                                                    {student.progress.totalPoints} pts
+                                                </span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

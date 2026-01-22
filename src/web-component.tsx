@@ -8,8 +8,9 @@ if (typeof window !== 'undefined') {
     // Inject Google Fonts
     if (!document.querySelector('link[href*="fonts.googleapis.com"]')) {
         const fontLink = document.createElement('link');
-        fontLink.rel = 'stylesheet';
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap';
+        fontLink.setAttribute('rel', 'stylesheet');
+        const fontUrl = 'https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap';
+        fontLink.setAttribute('href', fontUrl);
         document.head.appendChild(fontLink);
     }
 

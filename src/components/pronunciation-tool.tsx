@@ -83,54 +83,75 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
 
   const handleStop = async () => {
     setStatus('processing');
-    const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
-    audioChunksRef.current = [];
+    
+    try {
+      const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+      audioChunksRef.current = [];
 
-    const reader = new FileReader();
-    reader.readAsDataURL(audioBlob);
-    reader.onloadend = async () => {
-      try {
-        const base64Audio = reader.result as string;
-        if (!base64Audio) {
-          throw new Error('Failed to read audio data');
-        }
-        const response = await getPronunciationFeedbackAction({
-          word: word.text[language],
-          spokenWord: base64Audio,
-          language,
+      if (audioBlob.size === 0) {
+        throw new Error('No audio data recorded');
+      }
+
+      const reader = new FileReader();
+      
+      const readAudioData = new Promise<string>((resolve, reject) => {
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          if (!result) {
+            reject(new Error('Failed to read audio data'));
+          } else {
+            resolve(result);
+          }
+        };
+        
+        reader.onerror = () => {
+          reject(new Error('FileReader error occurred'));
+        };
+        
+        reader.readAsDataURL(audioBlob);
+      });
+
+      const base64Audio = await readAudioData;
+      
+      const response = await getPronunciationFeedbackAction({
+        word: word.text[language],
+        spokenWord: base64Audio,
+        language,
+      });
+
+      if (response.success && response.data) {
+        setFeedback(response.data);
+        setStatus('success');
+      } else {
+        throw new Error(response.error || 'AI feedback failed');
+      }
+    } catch (error) {
+      console.error('Pronunciation feedback error:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      
+      if (errorMessage.includes('audio') || errorMessage.includes('read')) {
+        toast({
+          variant: "destructive",
+          title: t.errTitle,
+          description: t.readErr,
         });
-
-        if (response.success && response.data) {
-          setFeedback(response.data);
-          setStatus('success');
-        } else {
-          console.error('Error getting feedback:', response.error);
-          toast({
-            variant: "destructive",
-            title: t.aiErrTitle,
-            description: t.aiErrDesc,
-          });
-          setStatus('error');
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
+      } else if (errorMessage.includes('AI') || errorMessage.includes('feedback')) {
+        toast({
+          variant: "destructive",
+          title: t.aiErrTitle,
+          description: t.aiErrDesc,
+        });
+      } else {
         toast({
           variant: "destructive",
           title: t.errTitle,
           description: t.errDesc,
         });
-        setStatus('error');
       }
-    };
-
-    reader.onerror = () => {
-      toast({
-        variant: "destructive",
-        title: t.errTitle,
-        description: t.readErr,
-      });
+      
       setStatus('error');
-    };
+    }
   };
 
   const reset = () => {
