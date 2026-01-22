@@ -55,7 +55,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     background-image:
       radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.05) 0px, transparent 50%),
       radial-gradient(at 100% 0%, hsla(162, 100%, 41%, 0.05) 0px, transparent 50%),
@@ -75,7 +75,11 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl transition-all duration-300;
+  }
+
+  .glass:hover {
+    @apply shadow-2xl translate-y-[-2px];
   }
 
   .glass-dark {
@@ -111,5 +115,15 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Industrial Standard UX: Interactive feedback */
+  button:not(:disabled):active,
+  [role="button"]:not(:disabled):active {
+    transform: scale(0.96);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
   }
 }

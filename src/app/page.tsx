@@ -80,6 +80,10 @@ export default function Home() {
       <LearningView
         module={currentModule}
         language={language}
+        onComplete={() => {
+          setCurrentModule(null);
+          // Optional: switch back to learning tab or show achievement
+        }}
       />
     );
   };
