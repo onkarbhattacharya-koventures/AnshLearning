@@ -15,7 +15,7 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 import { PronunciationTool } from '@/components/pronunciation-tool';
-import { Volume2 } from 'lucide-react';
+import { Volume2, Star } from 'lucide-react';
 
 interface LearningViewProps {
   module: {
@@ -62,7 +62,8 @@ export function LearningView({ module, language }: LearningViewProps) {
         en: 'en-US',
         de: 'de-DE',
         fr: 'fr-FR',
-        es: 'es-ES'
+        es: 'es-ES',
+        hi: 'hi-IN'
       };
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = langMap[lang] || 'en-US';
@@ -79,63 +80,87 @@ export function LearningView({ module, language }: LearningViewProps) {
   }
 
   return (
-    <div className="w-full flex flex-col items-center gap-8">
-      <Carousel setApi={setApi} className="w-full max-w-2xl">
-        <CarouselContent>
-          {content.map((item: any) => {
+    <div className="w-full flex flex-col items-center gap-10 py-6">
+      <div className="flex w-full max-w-2xl items-center justify-between px-4">
+        <div className="flex gap-1.5 focus-visible:outline-none">
+          {content.map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${idx === current ? 'w-8 bg-primary' : 'w-2 bg-muted'}`}
+            />
+          ))}
+        </div>
+        <span className="text-sm font-bold text-muted-foreground tabular-nums">
+          {current + 1} / {content.length}
+        </span>
+      </div>
+
+      <Carousel setApi={setApi} className="w-full max-w-3xl">
+        <CarouselContent className="-ml-4">
+          {content.map((item: any, idx: number) => {
             let itemImage;
             if ('imageId' in item) {
               itemImage = placeholderImages.find(img => img.id === item.imageId);
             }
             return (
-              <CarouselItem key={item.id}>
-                <Card className="overflow-hidden shadow-xl">
-                  <CardContent className="p-0">
-                    <div className="aspect-[3/2] relative w-full">
-                      {itemImage && <Image
+              <CarouselItem key={item.id} className="pl-4">
+                <div className={`overflow-hidden rounded-[2.5rem] bg-white shadow-2xl ring-1 ring-black/5 transition-transform duration-500 ${idx === current ? 'scale-100' : 'scale-95 opacity-50'}`}>
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    {itemImage ? (
+                      <Image
                         src={itemImage.imageUrl}
                         alt={itemImage.description}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                         data-ai-hint={itemImage.imageHint}
-                      />}
-                      {!itemImage && item.text && (
-                        <div className="flex items-center justify-center h-full bg-gray-100 dark:bg-gray-800">
-                          <p className="text-2xl text-center p-8">{item.text[language]}</p>
-                        </div>
-                      )}
-                      {!itemImage && item.title && (
-                        <div className="flex flex-col items-center justify-center h-full bg-gray-100 dark:bg-gray-800">
-                          <h2 className="text-3xl font-bold mb-4">{item.title[language]}</h2>
-                          <p className="text-lg text-center p-8">{item.content[language]}</p>
-                        </div>
-                      )}
+                        priority={idx === current}
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
+                        <Star className="h-20 w-20 text-primary/20 animate-pulse" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <h3 className="line-clamp-2 font-headline text-3xl font-bold text-white md:text-4xl">
+                        {'text' in item ? item.text[language] : item.title[language]}
+                      </h3>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
-        <CarouselPrevious className="hidden sm:flex" />
-        <CarouselNext className="hidden sm:flex" />
+        <CarouselPrevious className="hidden md:flex -left-16 glass" />
+        <CarouselNext className="hidden md:flex -right-16 glass" />
       </Carousel>
 
       {currentItem && (
-        <div className="flex flex-col items-center gap-6 w-full max-w-md">
-          <div className='flex items-center gap-4'>
-            <h2 className="text-5xl font-bold font-headline text-primary-foreground/90">
-              {'text' in currentItem ? currentItem.text[language] : currentItem.title[language]}
-            </h2>
-            <Button variant="outline" size="icon" onClick={() => {
-              const text = 'text' in currentItem ? currentItem.text[language] : currentItem.content[language];
-              handleSpeak(text, language);
-            }}>
-              <Volume2 className="h-6 w-6" />
+        <div className="flex w-full max-w-2xl flex-col items-center gap-8 rounded-[2.5rem] bg-white p-8 shadow-xl ring-1 ring-black/5 animate-in fade-in slide-in-from-bottom-10">
+          <div className="flex w-full items-center justify-between border-b pb-6">
+            <div className="flex flex-col gap-1 text-left">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Discover</span>
+              <h2 className="font-headline text-4xl font-bold text-foreground">
+                {'text' in currentItem ? currentItem.text[language] : currentItem.title[language]}
+              </h2>
+            </div>
+            <Button
+              size="icon"
+              className="h-14 w-14 rounded-2xl bg-primary text-white shadow-lg hover:shadow-primary/50 transition-all hover:scale-105"
+              onClick={() => {
+                const text = 'text' in currentItem ? currentItem.text[language] : currentItem.content[language];
+                handleSpeak(text, language);
+              }}
+            >
+              <Volume2 className="h-7 w-7" />
               <span className="sr-only">Listen</span>
             </Button>
           </div>
-          <PronunciationTool word={currentItem as Word} language={language} />
+
+          <div className="w-full">
+            <PronunciationTool word={currentItem as Word} language={language} />
+          </div>
         </div>
       )}
     </div>

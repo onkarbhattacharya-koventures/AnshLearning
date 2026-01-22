@@ -9,9 +9,12 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '400px',
+      },
       fontFamily: {
-        body: ['var(--font-pt-sans)', 'sans-serif'],
-        headline: ['var(--font-pt-sans)', 'sans-serif'],
+        sans: ['var(--font-outfit)', 'sans-serif'],
+        headline: ['var(--font-fredoka)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

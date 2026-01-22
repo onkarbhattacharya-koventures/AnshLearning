@@ -24,14 +24,14 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('learn');
 
   const tabTranslations = {
-    learn: { en: 'Learn', de: 'Lernen', fr: 'Apprendre', es: 'Aprender' },
-    vocabulary: { en: 'Vocabulary', de: 'Wortschatz', fr: 'Vocabulaire', es: 'Vocabulario' },
-    library: { en: 'Library', de: 'Bibliothek', fr: 'Bibliothèque', es: 'Biblioteca' },
+    learn: { en: 'Learn', de: 'Lernen', fr: 'Apprendre', es: 'Aprender', hi: 'सीखें' },
+    vocabulary: { en: 'Vocabulary', de: 'Wortschatz', fr: 'Vocabulaire', es: 'Vocabulario', hi: 'शब्दावली' },
+    library: { en: 'Library', de: 'Bibliothek', fr: 'Bibliothèque', es: 'Biblioteca', hi: 'पुस्तकालय' },
   };
 
   const backTranslations = {
-    modules: { en: 'Back to Modules', de: 'Zurück zu den Modulen', fr: 'Retour aux modules', es: 'Volver a los módulos' },
-    ageGroups: { en: 'Back to Age Groups', de: 'Zurück zu den Altersgruppen', fr: 'Retour aux groupes d\'âge', es: 'Volver a los grupos de edad' },
+    modules: { en: 'Back to Modules', de: 'Zurück zu den Modulen', fr: 'Retour aux modules', es: 'Volver a los módulos', hi: 'मॉड्यूल पर वापस जाएं' },
+    ageGroups: { en: 'Back to Age Groups', de: 'Zurück zu den Altersgruppen', fr: 'Retour aux groupes d\'âge', es: 'Volver a los grupos de edad', hi: 'आयु समूहों पर वापस जाएं' },
   };
 
   const handleAgeSelect = (ageGroup: AgeGroup) => {
@@ -85,56 +85,89 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center p-4 sm:p-6 md:p-8">
-      <header className="flex w-full max-w-5xl items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Logo className="h-10 w-10 text-primary" />
-          <h1 className="font-headline text-2xl font-bold text-primary-foreground sm:text-3xl md:text-4xl">
-            LanguageKids
+    <div className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden p-4 sm:p-6 md:p-8">
+      {/* Decorative blobs */}
+      <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 top-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-40 left-1/4 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+
+      <header className="z-10 flex w-full max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/5 animate-float transform transition-transform hover:scale-110 sm:h-12 sm:w-12">
+            <Logo className="h-full w-full text-primary" />
+          </div>
+          <h1 className="font-headline text-2xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            <span className="text-gradient">Language</span>
+            <span className="text-foreground shrink-0">Kids</span>
           </h1>
         </div>
-        <LanguageSwitcher language={language} setLanguage={setLanguage} />
+        <div className="glass flex w-auto items-center gap-2 rounded-2xl px-3 py-2 ring-1 ring-black/5 sm:gap-4 sm:px-4 sm:py-2">
+          <LanguageSwitcher language={language} setLanguage={setLanguage} />
+        </div>
       </header>
 
-      <main className="flex flex-1 flex-col w-full max-w-5xl items-center justify-center mt-8">
+      <main className="z-10 mt-12 flex w-full max-w-5xl flex-1 flex-col items-center justify-start">
         <div className="w-full">
           {activeTab === 'learn' && currentAgeGroup && (
-            <div className="mb-6 flex justify-start">
-              <Button variant="ghost" onClick={currentModule ? resetModule : resetAgeGroup}>
+            <div className="mb-8 flex justify-start">
+              <Button
+                variant="ghost"
+                onClick={currentModule ? resetModule : resetAgeGroup}
+                className="hover:bg-primary/5 transition-colors"
+              >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                {currentModule
-                  ? backTranslations.modules[language]
-                  : backTranslations.ageGroups[language]}
+                <span className="font-medium">
+                  {currentModule
+                    ? backTranslations.modules[language]
+                    : backTranslations.ageGroups[language]}
+                </span>
               </Button>
             </div>
           )}
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
-              <TabsTrigger value="learn" className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4" />
-                {tabTranslations.learn[language]}
-              </TabsTrigger>
-              <TabsTrigger value="vocabulary" className="flex items-center gap-2">
-                <Search className="h-4 w-4" />
-                {tabTranslations.vocabulary[language]}
-              </TabsTrigger>
-              <TabsTrigger value="library" className="flex items-center gap-2">
-                <Library className="h-4 w-4" />
-                {tabTranslations.library[language]}
-              </TabsTrigger>
-            </TabsList>
+            <div className="mb-10 w-full overflow-x-auto pb-2 scrollbar-hide">
+              <TabsList className="glass flex min-w-max w-full justify-start gap-2 overflow-hidden rounded-2xl p-2 ring-1 ring-black/5 sm:grid sm:grid-cols-3 sm:min-w-0">
+                <TabsTrigger
+                  value="learn"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl px-6 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg sm:px-3"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  <span className="font-semibold whitespace-nowrap">{tabTranslations.learn[language]}</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="vocabulary"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl px-6 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg sm:px-3"
+                >
+                  <Search className="h-4 w-4" />
+                  <span className="font-semibold whitespace-nowrap">{tabTranslations.vocabulary[language]}</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="library"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl px-6 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg sm:px-3"
+                >
+                  <Library className="h-4 w-4" />
+                  <span className="font-semibold whitespace-nowrap">{tabTranslations.library[language]}</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
-            <TabsContent value="learn" className="mt-0">
-              {renderLearningContent()}
+            <TabsContent value="learn" className="mt-0 focus-visible:outline-none">
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
+                {renderLearningContent()}
+              </div>
             </TabsContent>
 
-            <TabsContent value="vocabulary" className="mt-0">
-              <VocabularyBrowser language={language} />
+            <TabsContent value="vocabulary" className="mt-0 focus-visible:outline-none">
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <VocabularyBrowser language={language} />
+              </div>
             </TabsContent>
 
-            <TabsContent value="library" className="mt-0">
-              <ResourceLibrary language={language} />
+            <TabsContent value="library" className="mt-0 focus-visible:outline-none">
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <ResourceLibrary language={language} />
+              </div>
             </TabsContent>
           </Tabs>
         </div>

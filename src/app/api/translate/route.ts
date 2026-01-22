@@ -26,7 +26,8 @@ export async function POST(request: NextRequest) {
             'en': 'English',
             'de': 'German',
             'fr': 'French',
-            'es': 'Spanish'
+            'es': 'Spanish',
+            'hi': 'Hindi'
         };
 
         const sourceLang = langMap[sourceLanguage] || 'English';

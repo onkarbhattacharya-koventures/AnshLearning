@@ -98,6 +98,25 @@ export function QuizComponent({ quiz, language, onComplete }: QuizComponentProps
             previous: 'Anterior',
             next: 'Siguiente',
             finish: 'Finalizar'
+        },
+        hi: {
+            congrats: 'बधाई हो!',
+            practice: 'अभ्यास जारी रखें!',
+            scored: (s: number) => `आपने इस क्विज़ में ${Math.round(s)}% स्कोर किया है`,
+            yourScore: 'आपका स्कोर',
+            passingScore: 'पासिंग स्कोर',
+            review: 'उत्तरों की समीक्षा करें',
+            yourAnswer: 'आपका उत्तर: ',
+            noAnswer: 'कोई उत्तर नहीं',
+            correctAnswer: 'सही उत्तर: ',
+            tryAgain: 'फिर से प्रयास करें',
+            continue: 'सीखना जारी रखें',
+            question: 'प्रश्न',
+            true: 'सही',
+            false: 'गलत',
+            previous: 'पिछला',
+            next: 'अगला',
+            finish: 'समाप्त'
         }
     }[language];
 

@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
-import { PT_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { Outfit, Fredoka } from 'next/font/google';
 
-const ptSans = PT_Sans({
+const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-pt-sans',
-  display: 'swap',
+  variable: '--font-outfit',
+});
+
+const fredoka = Fredoka({
+  subsets: ['latin'],
+  variable: '--font-fredoka',
 });
 
 export const metadata: Metadata = {
@@ -25,8 +28,9 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body
         className={cn(
-          'h-full font-body antialiased',
-          ptSans.variable,
+          'h-full font-sans antialiased',
+          outfit.variable,
+          fredoka.variable,
           'bg-background'
         )}
       >

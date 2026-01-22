@@ -7,31 +7,32 @@ export interface VocabularyEntry {
   german: string;
   french: string;
   spanish: string;
+  hindi: string;
   category?: string;
   ageGroups: string[];
 }
 
 // Comprehensive dictionaries
-const translations: Record<string, { de: string, fr: string, es: string }> = {
-  "turn": { de: "Wendung", fr: "tourner", es: "girar" },
-  "evening": { de: "Abend", fr: "soir", es: "tarde" },
-  "dinner": { de: "Abendessen", fr: "dîner", es: "cena" },
-  "adventure": { de: "Abenteuer", fr: "aventure", es: "aventura" },
-  "but": { de: "sondern", fr: "mais", es: "pero" },
-  "start": { de: "starten", fr: "démarrer", es: "empezar" },
-  "account": { de: "Konto", fr: "compte", es: "cuenta" },
-  "departure": { de: "Abreise", fr: "départ", es: "salida" },
-  "intention": { de: "Absicht", fr: "intention", es: "intención" },
-  "purpose": { de: "Zweck", fr: "but", es: "propósito" },
-  "eight": { de: "acht", fr: "huit", es: "ocho" },
-  "cat": { de: "Katze", fr: "chat", es: "gato" },
-  "dog": { de: "Hund", fr: "chien", es: "perro" },
-  "house": { de: "Haus", fr: "maison", es: "casa" },
-  "apple": { de: "Apfel", fr: "pomme", es: "manzana" },
-  "good": { de: "gut", fr: "bon", es: "bueno" },
-  "morning": { de: "Morgen", fr: "matin", es: "mañana" },
-  "thank you": { de: "danke", fr: "merci", es: "gracias" },
-  "please": { de: "bitte", fr: "s'il vous plaît", es: "por favor" },
+const translations: Record<string, { de: string, fr: string, es: string, hi: string }> = {
+  "turn": { de: "Wendung", fr: "tourner", es: "girar", hi: "मोड़" },
+  "evening": { de: "Abend", fr: "soir", es: "tarde", hi: "शाम" },
+  "dinner": { de: "Abendessen", fr: "dîner", es: "cena", hi: "रात का खाना" },
+  "adventure": { de: "Abenteuer", fr: "aventure", es: "aventura", hi: "साहसिक कार्य" },
+  "but": { de: "sondern", fr: "mais", es: "pero", hi: "लेकिन" },
+  "start": { de: "starten", fr: "démarrer", es: "empezar", hi: "शुरू" },
+  "account": { de: "Konto", fr: "compte", es: "cuenta", hi: "खाता" },
+  "departure": { de: "Abreise", fr: "départ", es: "salida", hi: "प्रस्थान" },
+  "intention": { de: "Absicht", fr: "intention", es: "intención", hi: "इरादा" },
+  "purpose": { de: "Zweck", fr: "but", es: "propósito", hi: "उद्देश्य" },
+  "eight": { de: "acht", fr: "huit", es: "ocho", hi: "आठ" },
+  "cat": { de: "Katze", fr: "chat", es: "gato", hi: "बिल्ली" },
+  "dog": { de: "Hund", fr: "chien", es: "perro", hi: "कुत्ता" },
+  "house": { de: "Haus", fr: "maison", es: "casa", hi: "घर" },
+  "apple": { de: "Apfel", fr: "pomme", es: "manzana", hi: "सेब" },
+  "good": { de: "gut", fr: "bon", hi: "अच्छा", es: "bueno" },
+  "morning": { de: "Morgen", fr: "matin", es: "mañana", hi: "सुबह" },
+  "thank you": { de: "danke", fr: "merci", es: "gracias", hi: "शुक्रिया" },
+  "please": { de: "bitte", fr: "s'il vous plaît", es: "por favor", hi: "कृपया" },
 };
 
 
@@ -46,6 +47,7 @@ export function generateVocabularyEntries(): VocabularyEntry[] {
     german: trans.de,
     french: trans.fr,
     spanish: trans.es,
+    hindi: trans.hi,
     category: categorizeWord(english),
     ageGroups: determineAgeGroups(english)
   }));

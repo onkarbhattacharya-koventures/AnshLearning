@@ -29,7 +29,8 @@ function generateVocabularyModules(): Module[] {
             en: `${category.charAt(0).toUpperCase() + category.slice(1)} Vocabulary`,
             de: `${category.charAt(0).toUpperCase() + category.slice(1)} Wortschatz`,
             fr: `Vocabulaire ${category}`,
-            es: `Vocabulario ${category}`
+            es: `Vocabulario ${category}`,
+            hi: `${category === 'basic' ? 'बुनियादी' : category === 'numbers' ? 'संख्या' : category === 'family' ? 'परिवार' : category === 'animals' ? 'जानवर' : category === 'food' ? 'खाना' : category === 'time' ? 'समय' : category === 'colors' ? 'रंग' : category === 'body' ? 'शरीर' : 'क्रिया'} शब्दावली`
           },
           ageGroups: [ageGroup],
           content: categoryWords
@@ -53,7 +54,7 @@ export interface Module {
 export const modules: Module[] = [
   {
     id: 'module-1-3-animals',
-    title: { en: 'Fun with Animals', de: 'Spaß mit Tieren', fr: 'S\'amuser avec les animaux', es: 'Diversión con animales' },
+    title: { en: 'Fun with Animals', de: 'Spaß mit Tieren', fr: 'S\'amuser avec les animaux', es: 'Diversión con animales', hi: 'जानवरों के साथ मज़ा' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'cat'),
@@ -64,7 +65,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-1-3-home',
-    title: { en: 'My Home', de: 'Mein Zuhause', fr: 'Ma maison', es: 'Mi casa' },
+    title: { en: 'My Home', de: 'Mein Zuhause', fr: 'Ma maison', es: 'Mi casa', hi: 'मेरा घर' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'house'),
@@ -75,7 +76,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-1-3-food',
-    title: { en: 'Yummy Food', de: 'Leckeres Essen', fr: 'Nourriture délicieuse', es: 'Comida deliciosa' },
+    title: { en: 'Yummy Food', de: 'Leckeres Essen', fr: 'Nourriture délicieuse', es: 'Comida deliciosa', hi: 'स्वादिष्ट खाना' },
     ageGroups: ['1-3'],
     content: [
       words.find(w => w.id === 'bread'),
@@ -84,7 +85,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-3-5-nature',
-    title: { en: 'Exploring Nature', de: 'Die Natur entdecken', fr: 'Explorer la nature', es: 'Explorando la naturaleza' },
+    title: { en: 'Exploring Nature', de: 'Die Natur entdecken', fr: 'Explorer la nature', es: 'Explorando la naturaleza', hi: 'प्रकृति की खोज' },
     ageGroups: ['3-5'],
     content: [
       words.find(w => w.id === 'apple'),
@@ -97,7 +98,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-3-5-food',
-    title: { en: 'More Yummy Food', de: 'Mehr leckeres Essen', fr: 'Encore plus de nourriture', es: 'Más comida deliciosa' },
+    title: { en: 'More Yummy Food', de: 'Mehr leckeres Essen', fr: 'Encore plus de nourriture', es: 'Más comida deliciosa', hi: 'और अधिक स्वादिष्ट भोजन' },
     ageGroups: ['3-5'],
     content: [
       words.find(w => w.id === 'cheese'),
@@ -106,7 +107,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-5-8-school',
-    title: { en: 'Fun at School', de: 'Spaß in der Schule', fr: 'S\'amuser à l\'école', es: 'Diversión en la escuela' },
+    title: { en: 'Fun at School', de: 'Spaß in der Schule', fr: 'S\'amuser à l\'école', es: 'Diversión en la escuela', hi: 'स्कूल में मज़ा' },
     ageGroups: ['5-8'],
     content: [
       words.find(w => w.id === 'book'),
@@ -117,7 +118,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-5-8-people',
-    title: { en: 'My Friends and Family', de: 'Meine Freunde und Familie', fr: 'Mes amis et ma famille', es: 'Mis amigos y familia' },
+    title: { en: 'My Friends and Family', de: 'Meine Freunde und Familie', fr: 'Mes amis et ma famille', es: 'Mis amigos y familia', hi: 'मेरे दोस्त और परिवार' },
     ageGroups: ['5-8'],
     content: [
       words.find(w => w.id === 'family'),
@@ -128,7 +129,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-8-12-technology',
-    title: { en: 'Tech and the World', de: 'Technik und die Welt', fr: 'La technologie et le monde', es: 'La tecnología y el mundo' },
+    title: { en: 'Tech and the World', de: 'Technik und die Welt', fr: 'La technologie et le monde', es: 'La tecnología y el mundo', hi: 'तकनीक और दुनिया' },
     ageGroups: ['8-12', '13-15'],
     content: [
       words.find(w => w.id === 'computer'),
@@ -138,7 +139,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-13-15-world',
-    title: { en: 'Our World', de: 'Unsere Welt', fr: 'Notre monde', es: 'Nuestro mundo' },
+    title: { en: 'Our World', de: 'Unsere Welt', fr: 'Notre monde', es: 'Nuestro mundo', hi: 'हमारी दुनिया' },
     ageGroups: ['13-15'],
     content: [
       paragraphs.find(p => p.id === 'p1'),
@@ -147,7 +148,7 @@ export const modules: Module[] = [
   },
   {
     id: 'module-15-18-future',
-    title: { en: 'The Future of the World', de: 'Die Zukunft der Welt', fr: 'L\'avenir du monde', es: 'El futuro del mundo' },
+    title: { en: 'The Future of the World', de: 'Die Zukunft der Welt', fr: 'L\'avenir du monde', es: 'El futuro del mundo', hi: 'दुनिया का भविष्य' },
     ageGroups: ['15-18'],
     content: [
       words.find(w => w.id === 'bicycle'),

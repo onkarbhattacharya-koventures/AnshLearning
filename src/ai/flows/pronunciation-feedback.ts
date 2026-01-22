@@ -10,7 +10,7 @@ import { z } from 'genkit';
 const PronunciationFeedbackInputSchema = z.object({
   word: z.string().describe('The word to provide pronunciation feedback on.'),
   spokenWord: z.string().describe('The spoken word by the user as a base64 encoded audio data URL.'),
-  language: z.enum(['en', 'de', 'fr', 'es']).describe('The language of the word.'),
+  language: z.enum(['en', 'de', 'fr', 'es', 'hi']).describe('The language of the word.'),
 });
 export type PronunciationFeedbackInput = z.infer<typeof PronunciationFeedbackInputSchema>;
 

@@ -47,6 +47,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
         { code: 'de', name: 'German', flag: '🇩🇪', locale: 'de-DE' },
         { code: 'fr', name: 'French', flag: '🇫🇷', locale: 'fr-FR' },
         { code: 'es', name: 'Spanish', flag: '🇪🇸', locale: 'es-ES' },
+        { code: 'hi', name: 'Hindi', flag: '🇮🇳', locale: 'hi-IN' },
     ];
 
     const getLangInfo = (code: Language) => languages.find(l => l.code === code) || languages[0];
@@ -145,16 +146,16 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
     const getFallbackTranslation = (text: string, from: Language, to: Language): string => {
         // Simple fallback translations for common phrases
         const translations: Record<string, Record<Language, string>> = {
-            'hello': { en: 'hello', de: 'hallo', fr: 'bonjour', es: 'hola' },
-            'goodbye': { en: 'goodbye', de: 'auf wiedersehen', fr: 'au revoir', es: 'adiós' },
-            'thank you': { en: 'thank you', de: 'danke', fr: 'merci', es: 'gracias' },
-            'please': { en: 'please', de: 'bitte', fr: 's\'il vous plaît', es: 'por favor' },
-            'yes': { en: 'yes', de: 'ja', fr: 'oui', es: 'sí' },
-            'no': { en: 'no', de: 'nein', fr: 'non', es: 'no' },
-            'good morning': { en: 'good morning', de: 'guten morgen', fr: 'bonjour', es: 'buenos días' },
-            'good night': { en: 'good night', de: 'gute nacht', fr: 'bonne nuit', es: 'buenas noches' },
-            'how are you': { en: 'how are you', de: 'wie geht es dir', fr: 'comment ça va', es: 'cómo estás' },
-            'i love you': { en: 'i love you', de: 'ich liebe dich', fr: 'je t\'aime', es: 'te amo' },
+            'hello': { en: 'hello', de: 'hallo', fr: 'bonjour', es: 'hola', hi: 'नमस्ते' },
+            'goodbye': { en: 'goodbye', de: 'auf wiedersehen', fr: 'au revoir', es: 'adiós', hi: 'नमस्ते (विदाई)' },
+            'thank you': { en: 'thank you', de: 'danke', fr: 'merci', es: 'gracias', hi: 'शुक्रिया' },
+            'please': { en: 'please', de: 'bitte', fr: 's\'il vous plaît', es: 'por favor', hi: 'कृपया' },
+            'yes': { en: 'yes', de: 'ja', fr: 'oui', es: 'sí', hi: 'हाँ' },
+            'no': { en: 'no', de: 'nein', fr: 'non', es: 'no', hi: 'नहीं' },
+            'good morning': { en: 'good morning', de: 'guten morgen', fr: 'bonjour', es: 'buenos días', hi: 'शुभ प्रभात' },
+            'good night': { en: 'good night', de: 'gute nacht', fr: 'bonne nuit', es: 'buenas noches', hi: 'शुभ रात्रि' },
+            'how are you': { en: 'how are you', de: 'wie geht es dir', fr: 'comment ça va', es: 'cómo estás', hi: 'आप कैसे हैं' },
+            'i love you': { en: 'i love you', de: 'ich liebe dich', fr: 'je t\'aime', es: 'te amo', hi: 'मैं तुमसे प्यार करता हूँ' },
         };
 
         const lowerText = text.toLowerCase().trim();
@@ -229,7 +230,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
                         {getLangInfo(sourceLanguage).name} → {getLangInfo(targetLanguage).name} Translator
                     </span>
                     <Badge variant="secondary" className="text-xs">
-                        EN, DE, FR, ES Supported
+                        EN, DE, FR, ES, HI Supported
                     </Badge>
                 </div>
                 {isExpanded ? (
@@ -241,7 +242,7 @@ export function TranslationFooter({ defaultLanguage = 'en' }: TranslationFooterP
 
             {/* Translation Interface */}
             {isExpanded && (
-                <div className="p-4 max-w-6xl mx-auto">
+                <div className="p-4 max-w-6xl mx-auto max-h-[70vh] overflow-y-auto sm:max-h-none">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Input Section */}
                         <Card>
