@@ -18,7 +18,9 @@ import { PronunciationTool } from '@/components/pronunciation-tool';
 import { Volume2 } from 'lucide-react';
 
 interface LearningViewProps {
-  module: any;
+  module: {
+    content: (Word | Sentence | Paragraph | Story)[];
+  };
   language: Language;
 }
 
@@ -117,14 +119,17 @@ export function LearningView({ module, language }: LearningViewProps) {
         <div className="flex flex-col items-center gap-6 w-full max-w-md">
           <div className='flex items-center gap-4'>
             <h2 className="text-5xl font-bold font-headline text-primary-foreground/90">
-              {currentItem.text ? currentItem.text[language] : currentItem.title[language]}
+              {'text' in currentItem ? currentItem.text[language] : currentItem.title[language]}
             </h2>
-            <Button variant="outline" size="icon" onClick={() => handleSpeak(currentItem.text ? currentItem.text[language] : currentItem.content[language], language)}>
+            <Button variant="outline" size="icon" onClick={() => {
+              const text = 'text' in currentItem ? currentItem.text[language] : currentItem.content[language];
+              handleSpeak(text, language);
+            }}>
               <Volume2 className="h-6 w-6" />
               <span className="sr-only">Listen</span>
             </Button>
           </div>
-          <PronunciationTool word={currentItem} language={language} />
+          <PronunciationTool word={currentItem as Word} language={language} />
         </div>
       )}
     </div>

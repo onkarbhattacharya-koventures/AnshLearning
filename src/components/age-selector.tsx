@@ -24,12 +24,11 @@ export function AgeSelector({ ageGroups, onSelect, language }: AgeSelectorProps)
           <Card
             key={ageGroup}
             onClick={() => onSelect(ageGroup)}
-            className="cursor-pointer bg-card hover:bg-primary/20 transition-all duration-300 transform hover:-translate-y-1 shadow-lg"
+            className="cursor-pointer bg-card hover:bg-primary/20 transition-colors hover:shadow-xl"
           >
             <CardHeader className="p-6">
               <CardTitle className="text-xl md:text-2xl font-bold text-center">
-                {ageGroup}
-                <span className="block text-sm text-muted-foreground mt-1">Years</span>
+                {ageGroup} Years
               </CardTitle>
             </CardHeader>
           </Card>

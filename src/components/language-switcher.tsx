@@ -13,7 +13,11 @@ export function LanguageSwitcher({ language, setLanguage }: LanguageSwitcherProp
   return (
     <RadioGroup
       defaultValue={language}
-      onValueChange={(value) => setLanguage(value as Language)}
+      onValueChange={(value) => {
+        if (value === 'en' || value === 'de') {
+          setLanguage(value);
+        }
+      }}
       className="flex items-center space-x-4"
     >
       <div className="flex items-center space-x-2">

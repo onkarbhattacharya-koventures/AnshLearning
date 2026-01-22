@@ -15,7 +15,7 @@ export function ModuleGrid({ modules, onSelect, language }: ModuleGridProps) {
       {modules.map(module => (
         <Card
           key={module.id}
-          className="cursor-pointer transition-transform hover:scale-105"
+          className="cursor-pointer transition-colors hover:bg-accent"
           onClick={() => onSelect(module)}
         >
           <CardHeader>

@@ -8,39 +8,43 @@ import { LanguageSwitcher } from '@/components/language-switcher';
 import { AgeSelector } from '@/components/age-selector';
 import { ModuleGrid } from '@/components/module-grid';
 import { LearningView } from '@/components/learning-view';
+import { VocabularyBrowser } from '@/components/vocabulary-browser';
 import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ArrowLeft, BookOpen, Search } from 'lucide-react';
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>('en');
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroup | null>(null);
-  const [selectedModule, setSelectedModule] = useState<any | null>(null);
+  const [currentAgeGroup, setCurrentAgeGroup] = useState<AgeGroup | null>(null);
+  const [currentModule, setCurrentModule] = useState<any | null>(null);
+  const [activeTab, setActiveTab] = useState('learn');
 
   const handleAgeSelect = (ageGroup: AgeGroup) => {
-    setSelectedAgeGroup(ageGroup);
-    setSelectedModule(null);
+    setCurrentAgeGroup(ageGroup);
+    setCurrentModule(null);
   };
 
   const handleModuleSelect = (module: any) => {
-    setSelectedModule(module);
+    setCurrentModule(module);
   };
 
   const resetModule = () => {
-    setSelectedModule(null);
+    setCurrentModule(null);
   };
 
   const resetAgeGroup = () => {
-    setSelectedAgeGroup(null);
-    setSelectedModule(null);
+    setCurrentAgeGroup(null);
+    setCurrentModule(null);
+    setActiveTab('learn');
   };
 
-  const filteredModules = selectedAgeGroup
-    ? modules.filter(m => m.ageGroups.includes(selectedAgeGroup))
+  const filteredModules = currentAgeGroup
+    ? modules.filter(m => m.ageGroups.includes(currentAgeGroup))
     : [];
 
-  const renderContent = () => {
-    if (!selectedAgeGroup) {
+  const renderLearningContent = () => {
+    if (!currentAgeGroup) {
       return (
         <AgeSelector
           ageGroups={ageGroups}
@@ -49,7 +53,7 @@ export default function Home() {
         />
       );
     }
-    if (!selectedModule) {
+    if (!currentModule) {
       return (
         <ModuleGrid
           modules={filteredModules}
@@ -60,10 +64,17 @@ export default function Home() {
     }
     return (
       <LearningView
-        module={selectedModule}
+        module={currentModule}
         language={language}
       />
     );
+  };
+
+  const renderContent = () => {
+    if (activeTab === 'vocabulary') {
+      return <VocabularyBrowser language={language} />;
+    }
+    return renderLearningContent();
   };
 
   return (
@@ -80,17 +91,37 @@ export default function Home() {
       
       <main className="flex flex-1 flex-col w-full max-w-5xl items-center justify-center mt-8">
         <div className="w-full">
-          {selectedAgeGroup && (
+          {activeTab === 'learn' && currentAgeGroup && (
             <div className="mb-6 flex justify-start">
-              <Button variant="ghost" onClick={selectedModule ? resetModule : resetAgeGroup}>
+              <Button variant="ghost" onClick={currentModule ? resetModule : resetAgeGroup}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                {selectedModule
+                {currentModule
                   ? `Back to Modules`
                   : `Back to Age Groups`}
               </Button>
             </div>
           )}
-          {renderContent()}
+          
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="learn" className="flex items-center gap-2">
+                <BookOpen className="h-4 w-4" />
+                Learn
+              </TabsTrigger>
+              <TabsTrigger value="vocabulary" className="flex items-center gap-2">
+                <Search className="h-4 w-4" />
+                Vocabulary
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="learn" className="mt-0">
+              {renderLearningContent()}
+            </TabsContent>
+            
+            <TabsContent value="vocabulary" className="mt-0">
+              <VocabularyBrowser language={language} />
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 

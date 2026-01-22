@@ -74,7 +74,10 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
       mediaRecorderRef.current.stop();
       // Get rid of the permission UI on the browser
-      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+      const stream = mediaRecorderRef.current.stream;
+      if (stream) {
+        stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+      }
     }
   };
 
@@ -88,6 +91,9 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
     reader.onloadend = async () => {
       try {
         const base64Audio = reader.result as string;
+        if (!base64Audio) {
+          throw new Error('Failed to read audio data');
+        }
         const response = await getPronunciationFeedbackAction({
           word: word.text[language],
           spokenWord: base64Audio,
@@ -115,6 +121,15 @@ export function PronunciationTool({ word, language }: PronunciationToolProps) {
         });
         setStatus('error');
       }
+    };
+    
+    reader.onerror = () => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to read audio data. Please try again.",
+      });
+      setStatus('error');
     };
   };
 

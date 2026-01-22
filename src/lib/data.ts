@@ -2,9 +2,13 @@
 import type { LucideIcon } from 'lucide-react';
 import { Cat, Dog, House, Car, Apple, Sprout, Building, Users, Rocket, Globe, MessageSquareText, AlignLeft, BookOpen, Utensils } from 'lucide-react';
 import placeholderData from './placeholder-images.json';
+import { generateVocabularyEntries, type VocabularyEntry } from './vocabulary-data';
 
 export type Language = 'en' | 'de';
 export type AgeGroup = '1-3' | '3-5' | '5-8' | '8-12' | '13-15' | '15-18';
+
+// Enhanced vocabulary integration
+const vocabularyEntries = generateVocabularyEntries();
 
 export interface Category {
   id: string;
@@ -115,39 +119,29 @@ export const categories: Category[] = [
   },
 ];
 
-export const words: Word[] = [
-  // Animals
-  { id: 'cat', categoryId: 'animals', text: { en: 'Cat', de: 'Katze' }, imageId: 'cat-1', ageGroups: ['1-3', '3-5'] },
-  { id: 'dog', categoryId: 'animals', text: { en: 'Dog', de: 'Hund' }, imageId: 'dog-1', ageGroups: ['1-3', '3-5'] },
-  { id: 'bird', categoryId: 'animals', text: { en: 'Bird', de: 'Vogel' }, imageId: 'bird-1', ageGroups: ['1-3', '3-5', '5-8'] },
-  { id: 'fish', categoryId: 'animals', text: { en: 'Fish', de: 'Fisch' }, imageId: 'fish-1', ageGroups: ['1-3', '3-5'] },
-  // Home
-  { id: 'house', categoryId: 'home', text: { en: 'House', de: 'Haus' }, imageId: 'house-1', ageGroups: ['1-3', '3-5'] },
-  { id: 'car', categoryId: 'home', text: { en: 'Car', de: 'Auto' }, imageId: 'car-1', ageGroups: ['1-3', '3-5', '5-8'] },
-  { id: 'ball', categoryId: 'home', text: { en: 'Ball', de: 'Ball' }, imageId: 'ball-1', ageGroups: ['1-3'] },
-  { id: 'bed', categoryId: 'home', text: { en: 'Bed', de: 'Bett' }, imageId: 'bed-1', ageGroups: ['1-3', '3-5'] },
-  // Nature
-  { id: 'apple', categoryId: 'nature', text: { en: 'Apple', de: 'Apfel' }, imageId: 'apple-1', ageGroups: ['3-5', '5-8'] },
-  { id: 'tree', categoryId: 'nature', text: { en: 'Tree', de: 'Baum' }, imageId: 'tree-1', ageGroups: ['3-5', '5-8'] },
-  { id: 'flower', categoryId: 'nature', text: { en: 'Flower', de: 'Blume' }, imageId: 'flower-1', ageGroups: ['3-5', '5-8'] },
-  { id: 'sun', categoryId: 'nature', text: { en: 'Sun', de: 'Sonne' }, imageId: 'sun-1', ageGroups: ['3-5', '5-8'] },
-  { id: 'moon', categoryId: 'nature', text: { en: 'Moon', de: 'Mond' }, imageId: 'moon-1', ageGroups: ['3-5', '5-8'] },
-  { id: 'star', categoryId: 'nature', text: { en: 'Star', de: 'Stern' }, imageId: 'star-1', ageGroups: ['3-5', '5-8'] },
-  // Food
-  { id: 'bread', categoryId: 'food', text: { en: 'Bread', de: 'Brot' }, imageId: 'bread-1', ageGroups: ['1-3', '3-5'] },
-  { id: 'milk', categoryId: 'food', text: { en: 'Milk', de: 'Milch' }, imageId: 'milk-1', ageGroups: ['1-3', '3-5'] },
-  { id: 'cheese', categoryId: 'food', text: { en: 'Cheese', de: 'Käse' }, imageId: 'cheese-1', ageGroups: ['3-5', '5-8'] },
-  // People
-  { id: 'family', categoryId: 'people', text: { en: 'Family', de: 'Familie' }, imageId: 'family-1', ageGroups: ['5-8', '8-12'] },
-  { id: 'friend', categoryId: 'people', text: { en: 'Friend', de: 'Freund' }, imageId: 'friend-1', ageGroups: ['5-8', '8-12', '13-15'] },
-  // School
-  { id: 'book', categoryId: 'school', text: { en: 'Book', de: 'Buch' }, imageId: 'book-1', ageGroups: ['5-8', '8-12'] },
-  { id: 'school-building', categoryId: 'school', text: { en: 'School', de: 'Schule' }, imageId: 'school-1', ageGroups: ['5-8', '8-12'] },
-  // Technology
-  { id: 'computer', categoryId: 'technology', text: { en: 'Computer', de: 'Computer' }, imageId: 'computer-1', ageGroups: ['8-12', '13-15', '15-18'] },
-  { id: 'phone', categoryId: 'technology', text: { en: 'Phone', de: 'Handy' }, imageId: 'phone-1', ageGroups: ['8-12', '13-15', '15-18'] },
-  { id: 'bicycle', categoryId: 'technology', text: { en: 'Bicycle', de: 'Fahrrad' }, imageId: 'bicycle-1', ageGroups: ['8-12', '13-15'] },
-];
+// Convert vocabulary entries to words format
+function convertVocabularyToWords(): Word[] {
+  const baseWords: Word[] = [
+    // Core words with images
+    { id: 'cat', categoryId: 'animals', text: { en: 'Cat', de: 'Katze' }, imageId: 'cat-1', ageGroups: ['1-3', '3-5'] },
+    { id: 'dog', categoryId: 'animals', text: { en: 'Dog', de: 'Hund' }, imageId: 'dog-1', ageGroups: ['1-3', '3-5'] },
+    { id: 'house', categoryId: 'home', text: { en: 'House', de: 'Haus' }, imageId: 'house-1', ageGroups: ['1-3', '3-5'] },
+    { id: 'apple', categoryId: 'food', text: { en: 'Apple', de: 'Apfel' }, imageId: 'apple-1', ageGroups: ['3-5', '5-8'] },
+  ];
+
+  // Add vocabulary entries as words
+  const vocabWords = vocabularyEntries.map(entry => ({
+    id: entry.id,
+    categoryId: entry.category || 'general',
+    text: { en: entry.english, de: entry.german },
+    imageId: `placeholder-${entry.id}`,
+    ageGroups: entry.ageGroups as AgeGroup[]
+  }));
+
+  return [...baseWords, ...vocabWords];
+}
+
+export const words: Word[] = convertVocabularyToWords();
 
 export const sentences: Sentence[] = [
   { id: 's1', categoryId: 'sentences', text: { en: 'The cat is sleeping on the mat.', de: 'Die Katze schläft auf der Matte.' }, ageGroups: ['5-8'] },
@@ -206,3 +200,7 @@ export const stories: Story[] = [
 
 
 export const placeholderImages = placeholderData.placeholderImages;
+
+// Export vocabulary utilities
+export { vocabularyEntries };
+export type { VocabularyEntry };
